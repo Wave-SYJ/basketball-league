@@ -4,7 +4,7 @@
 /////////////////////////////////////////////////////////////////////////////
 // CViewTree 窗口
 
-class CViewTree : public CTreeCtrl
+class CViewTree : public CListCtrl
 {
 // 构造
 public:

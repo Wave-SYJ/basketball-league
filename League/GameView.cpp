@@ -2,7 +2,7 @@
 #include "pch.h"
 #include "framework.h"
 #include "mainfrm.h"
-#include "FileView.h"
+#include "GameView.h"
 #include "Resource.h"
 #include "League.h"
 
@@ -77,7 +77,6 @@ int CGameView::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	m_wndToolBar.SetRouteCommandsViaFrame(FALSE);
 
 	// 填入一些静态树视图数据(此处只需填入虚拟代码，而不是复杂的数据)
-	FillFileView();
 	AdjustLayout();
 
 	return 0;
@@ -89,40 +88,6 @@ void CGameView::OnSize(UINT nType, int cx, int cy)
 	AdjustLayout();
 }
 
-void CGameView::FillFileView()
-{
-	HTREEITEM hRoot = m_wndFileView.InsertItem(_T("FakeApp 文件"), 0, 0);
-	m_wndFileView.SetItemState(hRoot, TVIS_BOLD, TVIS_BOLD);
-
-	HTREEITEM hSrc = m_wndFileView.InsertItem(_T("FakeApp 源文件"), 0, 0, hRoot);
-
-	m_wndFileView.InsertItem(_T("FakeApp.cpp"), 1, 1, hSrc);
-	m_wndFileView.InsertItem(_T("FakeApp.rc"), 1, 1, hSrc);
-	m_wndFileView.InsertItem(_T("FakeAppDoc.cpp"), 1, 1, hSrc);
-	m_wndFileView.InsertItem(_T("FakeAppView.cpp"), 1, 1, hSrc);
-	m_wndFileView.InsertItem(_T("MainFrm.cpp"), 1, 1, hSrc);
-	m_wndFileView.InsertItem(_T("pch.cpp"), 1, 1, hSrc);
-
-	HTREEITEM hInc = m_wndFileView.InsertItem(_T("FakeApp 头文件"), 0, 0, hRoot);
-
-	m_wndFileView.InsertItem(_T("FakeApp.h"), 2, 2, hInc);
-	m_wndFileView.InsertItem(_T("FakeAppDoc.h"), 2, 2, hInc);
-	m_wndFileView.InsertItem(_T("FakeAppView.h"), 2, 2, hInc);
-	m_wndFileView.InsertItem(_T("Resource.h"), 2, 2, hInc);
-	m_wndFileView.InsertItem(_T("MainFrm.h"), 2, 2, hInc);
-	m_wndFileView.InsertItem(_T("pch.h"), 2, 2, hInc);
-
-	HTREEITEM hRes = m_wndFileView.InsertItem(_T("FakeApp 资源文件"), 0, 0, hRoot);
-
-	m_wndFileView.InsertItem(_T("FakeApp.ico"), 2, 2, hRes);
-	m_wndFileView.InsertItem(_T("FakeApp.rc2"), 2, 2, hRes);
-	m_wndFileView.InsertItem(_T("FakeAppDoc.ico"), 2, 2, hRes);
-	m_wndFileView.InsertItem(_T("FakeToolbar.bmp"), 2, 2, hRes);
-
-	m_wndFileView.Expand(hRoot, TVE_EXPAND);
-	m_wndFileView.Expand(hSrc, TVE_EXPAND);
-	m_wndFileView.Expand(hInc, TVE_EXPAND);
-}
 
 void CGameView::OnContextMenu(CWnd* pWnd, CPoint point)
 {

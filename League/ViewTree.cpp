@@ -20,7 +20,7 @@ CViewTree::~CViewTree()
 {
 }
 
-BEGIN_MESSAGE_MAP(CViewTree, CTreeCtrl)
+BEGIN_MESSAGE_MAP(CViewTree, CListCtrl)
 END_MESSAGE_MAP()
 
 /////////////////////////////////////////////////////////////////////////////
@@ -28,7 +28,7 @@ END_MESSAGE_MAP()
 
 BOOL CViewTree::OnNotify(WPARAM wParam, LPARAM lParam, LRESULT* pResult)
 {
-	BOOL bRes = CTreeCtrl::OnNotify(wParam, lParam, pResult);
+	BOOL bRes = CListCtrl::OnNotify(wParam, lParam, pResult);
 
 	NMHDR* pNMHDR = (NMHDR*)lParam;
 	ASSERT(pNMHDR != nullptr);

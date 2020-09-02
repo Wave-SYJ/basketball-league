@@ -3,7 +3,7 @@
 
 #include "ViewTree.h"
 
-class CFileViewToolBar : public CMFCToolBar
+class CGameViewToolBar : public CMFCToolBar
 {
 	virtual void OnUpdateCmdUI(CFrameWnd* /*pTarget*/, BOOL bDisableIfNoHndler)
 	{
@@ -27,10 +27,7 @@ protected:
 
 	CViewTree m_wndFileView;
 	CImageList m_FileViewImages;
-	CFileViewToolBar m_wndToolBar;
-
-protected:
-	void FillFileView();
+	CGameViewToolBar m_wndToolBar;
 
 // 实现
 public:

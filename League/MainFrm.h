@@ -3,8 +3,8 @@
 //
 
 #pragma once
-#include "FileView.h"
-#include "ClassView.h"
+#include "PlayerView.h"
+#include "GameView.h"
 
 class CMainFrame : public CFrameWndEx
 {
@@ -38,7 +38,7 @@ protected:  // 控件条嵌入成员
 	CMFCStatusBar     m_wndStatusBar;
 	CMFCToolBarImages m_UserImages;
 	CGameView         m_wndFileView;
-	CClassView        m_wndClassView;
+	CPlayerView        m_wndClassView;
 
 // 生成的消息映射函数
 protected:

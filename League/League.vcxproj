@@ -188,8 +188,8 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="CEditDlg.h" />
-    <ClInclude Include="ClassView.h" />
-    <ClInclude Include="FileView.h" />
+    <ClInclude Include="PlayerView.h" />
+    <ClInclude Include="GameView.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="League.h" />
@@ -204,8 +204,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CEditDlg.cpp" />
-    <ClCompile Include="ClassView.cpp" />
-    <ClCompile Include="FileView.cpp" />
+    <ClCompile Include="PlayerView.cpp" />
+    <ClCompile Include="GameView.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="League.cpp" />
     <ClCompile Include="LeagueDoc.cpp" />
