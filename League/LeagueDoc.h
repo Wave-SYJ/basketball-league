@@ -5,7 +5,6 @@
 
 #pragma once
 
-
 class CLeagueDoc : public CDocument
 {
 protected: // 仅从序列化创建

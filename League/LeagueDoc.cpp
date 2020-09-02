@@ -56,14 +56,16 @@ BOOL CLeagueDoc::OnNewDocument()
 
 void CLeagueDoc::Serialize(CArchive& ar)
 {
-	if (ar.IsStoring())
+	/*if (ar.IsStoring())
 	{
-		// TODO: 在此添加存储代码
+		m_listPlayer.Serialize(ar);
+		m_listGame.Serialize(ar);
 	}
 	else
 	{
-		// TODO: 在此添加加载代码
-	}
+		m_listPlayer.Serialize(ar);
+		m_listGame.Serialize(ar);
+	}*/
 }
 
 #ifdef SHARED_HANDLERS
