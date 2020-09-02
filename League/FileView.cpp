@@ -15,15 +15,15 @@ static char THIS_FILE[]=__FILE__;
 /////////////////////////////////////////////////////////////////////////////
 // CFileView
 
-CFileView::CFileView() noexcept
+CGameView::CGameView() noexcept
 {
 }
 
-CFileView::~CFileView()
+CGameView::~CGameView()
 {
 }
 
-BEGIN_MESSAGE_MAP(CFileView, CDockablePane)
+BEGIN_MESSAGE_MAP(CGameView, CDockablePane)
 	ON_WM_CREATE()
 	ON_WM_SIZE()
 	ON_WM_CONTEXTMENU()
@@ -41,7 +41,7 @@ END_MESSAGE_MAP()
 /////////////////////////////////////////////////////////////////////////////
 // CWorkspaceBar 消息处理程序
 
-int CFileView::OnCreate(LPCREATESTRUCT lpCreateStruct)
+int CGameView::OnCreate(LPCREATESTRUCT lpCreateStruct)
 {
 	if (CDockablePane::OnCreate(lpCreateStruct) == -1)
 		return -1;
@@ -83,13 +83,13 @@ int CFileView::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	return 0;
 }
 
-void CFileView::OnSize(UINT nType, int cx, int cy)
+void CGameView::OnSize(UINT nType, int cx, int cy)
 {
 	CDockablePane::OnSize(nType, cx, cy);
 	AdjustLayout();
 }
 
-void CFileView::FillFileView()
+void CGameView::FillFileView()
 {
 	HTREEITEM hRoot = m_wndFileView.InsertItem(_T("FakeApp 文件"), 0, 0);
 	m_wndFileView.SetItemState(hRoot, TVIS_BOLD, TVIS_BOLD);
@@ -124,7 +124,7 @@ void CFileView::FillFileView()
 	m_wndFileView.Expand(hInc, TVE_EXPAND);
 }
 
-void CFileView::OnContextMenu(CWnd* pWnd, CPoint point)
+void CGameView::OnContextMenu(CWnd* pWnd, CPoint point)
 {
 	CTreeCtrl* pWndTree = (CTreeCtrl*) &m_wndFileView;
 	ASSERT_VALID(pWndTree);
@@ -153,7 +153,7 @@ void CFileView::OnContextMenu(CWnd* pWnd, CPoint point)
 	theApp.GetContextMenuManager()->ShowPopupMenu(IDR_POPUP_EXPLORER, point.x, point.y, this, TRUE);
 }
 
-void CFileView::AdjustLayout()
+void CGameView::AdjustLayout()
 {
 	if (GetSafeHwnd() == nullptr)
 	{
@@ -169,43 +169,43 @@ void CFileView::AdjustLayout()
 	m_wndFileView.SetWindowPos(nullptr, rectClient.left + 1, rectClient.top + cyTlb + 1, rectClient.Width() - 2, rectClient.Height() - cyTlb - 2, SWP_NOACTIVATE | SWP_NOZORDER);
 }
 
-void CFileView::OnProperties()
+void CGameView::OnProperties()
 {
 	AfxMessageBox(_T("属性...."));
 
 }
 
-void CFileView::OnFileOpen()
+void CGameView::OnFileOpen()
 {
 	// TODO: 在此处添加命令处理程序代码
 }
 
-void CFileView::OnFileOpenWith()
+void CGameView::OnFileOpenWith()
 {
 	// TODO: 在此处添加命令处理程序代码
 }
 
-void CFileView::OnDummyCompile()
+void CGameView::OnDummyCompile()
 {
 	// TODO: 在此处添加命令处理程序代码
 }
 
-void CFileView::OnEditCut()
+void CGameView::OnEditCut()
 {
 	// TODO: 在此处添加命令处理程序代码
 }
 
-void CFileView::OnEditCopy()
+void CGameView::OnEditCopy()
 {
 	// TODO: 在此处添加命令处理程序代码
 }
 
-void CFileView::OnEditClear()
+void CGameView::OnEditClear()
 {
 	// TODO: 在此处添加命令处理程序代码
 }
 
-void CFileView::OnPaint()
+void CGameView::OnPaint()
 {
 	CPaintDC dc(this); // 用于绘制的设备上下文
 
@@ -217,14 +217,14 @@ void CFileView::OnPaint()
 	dc.Draw3dRect(rectTree, ::GetSysColor(COLOR_3DSHADOW), ::GetSysColor(COLOR_3DSHADOW));
 }
 
-void CFileView::OnSetFocus(CWnd* pOldWnd)
+void CGameView::OnSetFocus(CWnd* pOldWnd)
 {
 	CDockablePane::OnSetFocus(pOldWnd);
 
 	m_wndFileView.SetFocus();
 }
 
-void CFileView::OnChangeVisualStyle()
+void CGameView::OnChangeVisualStyle()
 {
 	m_wndToolBar.CleanUpLockedImages();
 	m_wndToolBar.LoadBitmap(theApp.m_bHiColorIcons ? IDB_EXPLORER_24 : IDR_EXPLORER, 0, 0, TRUE /* 锁定*/);

@@ -3,6 +3,14 @@
 
 IMPLEMENT_SERIAL(CGame, CObject, 0)
 
+CGame::CGame()
+{
+}
+
+CGame::CGame(const COleDateTime time) : m_time(time)
+{
+}
+
 const CGame & CGame::operator=(const CGame & other)
 {
 	m_time = other.m_time;

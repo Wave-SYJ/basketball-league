@@ -23,6 +23,7 @@
 IMPLEMENT_DYNCREATE(CLeagueDoc, CDocument)
 
 BEGIN_MESSAGE_MAP(CLeagueDoc, CDocument)
+	ON_COMMAND(ID_32771, &CLeagueDoc::OnInsertGame)
 END_MESSAGE_MAP()
 
 
@@ -66,6 +67,9 @@ void CLeagueDoc::Serialize(CArchive& ar)
 		m_listPlayer.Serialize(ar);
 		m_listGame.Serialize(ar);
 	}*/
+
+	m_listGame.Serialize(ar);
+	m_listPlayer.Serialize(ar);
 }
 
 #ifdef SHARED_HANDLERS
@@ -138,3 +142,13 @@ void CLeagueDoc::Dump(CDumpContext& dc) const
 
 
 // CLeagueDoc 命令
+
+
+void CLeagueDoc::OnInsertGame()
+{
+	CEditDlg dlgEdit;
+	dlgEdit.SetInitialValue(DIALOG_INSERT, m_listGame.GetSize() + 1, COleDateTime::GetCurrentTime());
+	if (dlgEdit.DoModal() == IDOK) {
+		m_listGame.AddTail(CGame(dlgEdit.m_time));
+	}
+}

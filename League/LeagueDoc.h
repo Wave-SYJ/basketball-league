@@ -4,6 +4,8 @@
 
 
 #pragma once
+#include "Game.h"
+#include "CEditDlg.h"
 
 class CLeagueDoc : public CDocument
 {
@@ -13,6 +15,10 @@ protected: // 仅从序列化创建
 
 // 特性
 public:
+	// 存储每场球赛
+	CList<CGame> m_listGame;
+	// 存储个人汇总
+	CList<CPlayer> m_listPlayer;
 
 // 操作
 public:
@@ -44,4 +50,6 @@ protected:
 	// 用于为搜索处理程序设置搜索内容的 Helper 函数
 	void SetSearchContent(const CString& value);
 #endif // SHARED_HANDLERS
+public:
+	afx_msg void OnInsertGame();
 };

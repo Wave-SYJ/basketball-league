@@ -7,7 +7,10 @@ class CGame : public CObject
 	DECLARE_SERIAL(CGame)
 
 public:
-	CTime m_time;
+	CGame();
+	CGame(const COleDateTime time);
+
+	COleDateTime m_time;
 	CList<CPlayer> m_listPlayer;
 
 public:

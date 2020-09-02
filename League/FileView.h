@@ -13,11 +13,11 @@ class CFileViewToolBar : public CMFCToolBar
 	virtual BOOL AllowShowOnList() const { return FALSE; }
 };
 
-class CFileView : public CDockablePane
+class CGameView : public CDockablePane
 {
 // 构造
 public:
-	CFileView() noexcept;
+	CGameView() noexcept;
 
 	void AdjustLayout();
 	void OnChangeVisualStyle();
@@ -34,7 +34,7 @@ protected:
 
 // 实现
 public:
-	virtual ~CFileView();
+	virtual ~CGameView();
 
 protected:
 	afx_msg int OnCreate(LPCREATESTRUCT lpCreateStruct);
