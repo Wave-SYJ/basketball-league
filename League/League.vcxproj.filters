@@ -45,9 +45,6 @@
     <ClInclude Include="Player.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="CEditDlg.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
     <ClInclude Include="PlayerView.h">
       <Filter>头文件</Filter>
     </ClInclude>
@@ -55,6 +52,12 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="ViewList.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="EditGameDlg.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="EditPlayerDlg.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
@@ -80,9 +83,6 @@
     <ClCompile Include="Player.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="CEditDlg.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="PlayerView.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
@@ -90,6 +90,12 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="ViewList.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="EditGameDlg.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="EditPlayerDlg.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

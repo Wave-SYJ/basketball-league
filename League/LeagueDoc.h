@@ -5,7 +5,7 @@
 
 #pragma once
 #include "Game.h"
-#include "CEditDlg.h"
+#include "EditGameDlg.h"
 
 class CLeagueDoc : public CDocument
 {
@@ -52,4 +52,9 @@ protected:
 #endif // SHARED_HANDLERS
 public:
 	afx_msg void OnInsertGame();
+	afx_msg void OnInsertPlayer();
+	afx_msg void OnEditPlayer();
+	afx_msg void OnDeletePlayer();
+	afx_msg void OnEditGame();
+	afx_msg void OnDeleteGame();
 };

@@ -26,6 +26,7 @@ public:
 
 public:
 	void UpdateView(CList<CGame> * pList);
+	UINT GetSelectedIndex();
 
 // 特性
 protected:

@@ -66,21 +66,34 @@
 #define ID_VIEW_APPLOOK_WINDOWS_7       219
 #define IDS_EXPLORER                    305
 #define IDS_EDIT_MENU                   306
-#define IDD_EDIT                        310
+#define IDD_EDIT_GAME                   310
+#define IDD_EDIT_PLAYER                 312
 #define IDC_DATE                        1001
 #define IDC_ID                          1002
-#define IDC_PLAYER_LIST                 1003
-#define ID_32771                        32771
-#define ID_32772                        32772
-#define ID_32773                        32773
+#define IDC_NAME                        1003
+#define IDC_TEAM                        1004
+#define IDC_THREE_POINTER               1005
+#define IDC_REBOUND                     1006
+#define IDC_DRUNK                       1007
+#define IDC_STEAL                       1008
+#define IDC_SCORE                       1009
+#define ID_INSERT_GAME                  32775
+#define ID_INSERT_PLAYER                32776
+#define ID_EDIT_PLAYER                  32777
+#define ID_DELETE_GAME                  32778
+#define ID_EDIT_GAME                    32779
+#define ID_32780                        32780
+#define ID_32781                        32781
+#define ID_                             32782
+#define ID_DELETE_PLAYER                32783
 
 // Next default values for new objects
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
-#define _APS_NEXT_RESOURCE_VALUE        312
-#define _APS_NEXT_COMMAND_VALUE         32774
-#define _APS_NEXT_CONTROL_VALUE         1004
+#define _APS_NEXT_RESOURCE_VALUE        314
+#define _APS_NEXT_COMMAND_VALUE         32784
+#define _APS_NEXT_CONTROL_VALUE         1007
 #define _APS_NEXT_SYMED_VALUE           310
 #endif
 #endif

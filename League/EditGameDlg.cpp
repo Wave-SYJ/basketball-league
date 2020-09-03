@@ -3,35 +3,35 @@
 
 #include "pch.h"
 #include "League.h"
-#include "CEditDlg.h"
+#include "EditGameDlg.h"
 #include "afxdialogex.h"
 
 
 // CEditDlg 对话框
 
-IMPLEMENT_DYNAMIC(CEditDlg, CDialogEx)
+IMPLEMENT_DYNAMIC(CEditGameDlg, CDialogEx)
 
-CEditDlg::CEditDlg(CWnd* pParent /*=nullptr*/)
-	: CDialogEx(IDD_EDIT, pParent), m_strID(_T(""))
+CEditGameDlg::CEditGameDlg(CWnd* pParent /*=nullptr*/)
+	: CDialogEx(IDD_EDIT_GAME, pParent), m_strID(_T(""))
 	, m_time(COleDateTime::GetCurrentTime())
 	, m_uDlgType(DIALOG_UNKNOWN)
 {
 
 }
 
-CEditDlg::~CEditDlg()
+CEditGameDlg::~CEditGameDlg()
 {
 }
 
-void CEditDlg::SetInitialValue(UINT uDlgType, UINT uIndex, const COleDateTime& time)
+void CEditGameDlg::SetInitialValue(UINT uDlgType, UINT uIndex, const COleDateTime& time)
 {
 	m_uDlgType = uDlgType;
-	m_strID.Format(_T("%d"), uIndex);
+	m_strID.Format(_T("%d"), uIndex + 1);
 	m_time = time;
 	
 }
 
-void CEditDlg::DoDataExchange(CDataExchange* pDX)
+void CEditGameDlg::DoDataExchange(CDataExchange* pDX)
 {
 	CDialogEx::DoDataExchange(pDX);
 	DDX_Text(pDX, IDC_ID, m_strID);
@@ -39,14 +39,14 @@ void CEditDlg::DoDataExchange(CDataExchange* pDX)
 }
 
 
-BEGIN_MESSAGE_MAP(CEditDlg, CDialogEx)
+BEGIN_MESSAGE_MAP(CEditGameDlg, CDialogEx)
 END_MESSAGE_MAP()
 
 
 // CEditDlg 消息处理程序
 
 
-BOOL CEditDlg::OnInitDialog()
+BOOL CEditGameDlg::OnInitDialog()
 {
 	CDialogEx::OnInitDialog();
 

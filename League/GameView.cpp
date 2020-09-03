@@ -18,6 +18,7 @@ static char THIS_FILE[]=__FILE__;
 // CFileView
 
 CGameView::CGameView() noexcept
+	: m_wndGameView(STATUS_GAME)
 {
 }
 
@@ -230,6 +231,7 @@ void CGameView::OnChangeVisualStyle()
 
 void CGameView::UpdateView(CList<CGame>* pList)
 {
+	m_wndGameView.DeleteAllItems();
 	POSITION pos = pList->GetHeadPosition();
 	for (int i = 0; pos != NULL; i++) {
 		CGame* pTmp = &pList->GetNext(pos);
@@ -242,6 +244,11 @@ void CGameView::UpdateView(CList<CGame>* pList)
 		m_wndGameView.InsertItem(i, strTmp);
 		m_wndGameView.SetItemText(i, 1, pTmp->m_time.Format(VAR_DATEVALUEONLY));
 	}
+}
+
+UINT CGameView::GetSelectedIndex()
+{
+	return m_wndGameView.GetSelectionMark();
 }
 
 void CGameView::OnLButtonDblClk(UINT nFlags, CPoint point)

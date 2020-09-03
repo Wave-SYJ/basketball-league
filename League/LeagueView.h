@@ -5,6 +5,8 @@
 #pragma once
 
 class CLeagueDoc;
+class CPlayer;
+class CGame;
 class CLeagueView : public CListView
 {
 protected: // 仅从序列化创建
@@ -15,10 +17,17 @@ protected: // 仅从序列化创建
 public:
 	CLeagueDoc* GetDocument() const;
 
+private:
+	UINT m_uStatus;
+public:
+	CGame* m_pCurrentGame;
+	CPlayer* m_pCurrentPlayer;
+
 // 操作
 public:
-	void ShowGame(UINT index);
-	void ShowPlayer(UINT index);
+	void ShowGame(int index);
+	void ShowPlayer(int index);
+	void ShowEmpty();
 
 // 重写
 public:
@@ -46,6 +55,9 @@ protected:
 	afx_msg void OnRButtonUp(UINT nFlags, CPoint point);
 	afx_msg void OnContextMenu(CWnd* pWnd, CPoint point);
 	DECLARE_MESSAGE_MAP()
+	virtual void OnUpdate(CView* /*pSender*/, LPARAM /*lHint*/, CObject* /*pHint*/);
+public:
+	afx_msg void OnUpdateInsertPlayer(CCmdUI *pCmdUI);
 };
 
 #ifndef _DEBUG  // LeagueView.cpp 中的调试版本

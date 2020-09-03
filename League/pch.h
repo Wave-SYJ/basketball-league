@@ -10,5 +10,14 @@
 // 添加要在此处预编译的标头
 #include "framework.h"
 #include <afxcontrolbars.h>
+#include <afxcontrolbars.h>
+
+#define STATUS_GAME 0
+#define STATUS_PLAYER 1
+#define STATUS_EMPTY 2
+
+#define DIALOG_INSERT	0
+#define DIALOG_EDIT		1
+#define DIALOG_UNKNOWN	2
 
 #endif //PCH_H

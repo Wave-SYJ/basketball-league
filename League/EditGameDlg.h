@@ -3,17 +3,15 @@
 
 // CEditDlg 对话框
 
-#define DIALOG_INSERT	0
-#define DIALOG_EDIT		1
-#define DIALOG_UNKNOWN	2
 
-class CEditDlg : public CDialogEx
+
+class CEditGameDlg : public CDialogEx
 {
-	DECLARE_DYNAMIC(CEditDlg)
+	DECLARE_DYNAMIC(CEditGameDlg)
 
 public:
-	CEditDlg(CWnd* pParent = nullptr);   // 标准构造函数
-	virtual ~CEditDlg();
+	CEditGameDlg(CWnd* pParent = nullptr);   // 标准构造函数
+	virtual ~CEditGameDlg();
 
 // 对话框数据
 #ifdef AFX_DESIGN_TIME

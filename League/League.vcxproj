@@ -187,7 +187,8 @@
     </ResourceCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="CEditDlg.h" />
+    <ClInclude Include="EditGameDlg.h" />
+    <ClInclude Include="EditPlayerDlg.h" />
     <ClInclude Include="PlayerView.h" />
     <ClInclude Include="GameView.h" />
     <ClInclude Include="framework.h" />
@@ -203,7 +204,8 @@
     <ClInclude Include="ViewList.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="CEditDlg.cpp" />
+    <ClCompile Include="EditGameDlg.cpp" />
+    <ClCompile Include="EditPlayerDlg.cpp" />
     <ClCompile Include="PlayerView.cpp" />
     <ClCompile Include="GameView.cpp" />
     <ClCompile Include="Game.cpp" />

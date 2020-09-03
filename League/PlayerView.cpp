@@ -38,6 +38,7 @@ IMPLEMENT_SERIAL(CPlayerViewMenuButton, CMFCToolBarMenuButton, 1)
 //////////////////////////////////////////////////////////////////////
 
 CPlayerView::CPlayerView() noexcept
+	:m_wndPlayerView(STATUS_PLAYER)
 {
 	m_nCurrSort = ID_SORTING_GROUPBYTYPE;
 }
@@ -75,7 +76,7 @@ int CPlayerView::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	// 创建视图: 
 	const DWORD dwViewStyle = WS_CHILD | WS_VISIBLE | TVS_HASLINES | TVS_LINESATROOT | TVS_HASBUTTONS | WS_CLIPSIBLINGS | WS_CLIPCHILDREN;
 
-	if (!m_wndClassView.Create(dwViewStyle, rectDummy, this, 2))
+	if (!m_wndPlayerView.Create(dwViewStyle, rectDummy, this, 2))
 	{
 		TRACE0("未能创建类视图\n");
 		return -1;      // 未能创建
@@ -123,7 +124,7 @@ void CPlayerView::OnSize(UINT nType, int cx, int cy)
 
 void CPlayerView::OnContextMenu(CWnd* pWnd, CPoint point)
 {
-	CTreeCtrl* pWndTree = (CTreeCtrl*)&m_wndClassView;
+	CTreeCtrl* pWndTree = (CTreeCtrl*)&m_wndPlayerView;
 	ASSERT_VALID(pWndTree);
 
 	if (pWnd != pWndTree)
@@ -177,7 +178,7 @@ void CPlayerView::AdjustLayout()
 	int cyTlb = m_wndToolBar.CalcFixedLayout(FALSE, TRUE).cy;
 
 	m_wndToolBar.SetWindowPos(nullptr, rectClient.left, rectClient.top, rectClient.Width(), cyTlb, SWP_NOACTIVATE | SWP_NOZORDER);
-	m_wndClassView.SetWindowPos(nullptr, rectClient.left + 1, rectClient.top + cyTlb + 1, rectClient.Width() - 2, rectClient.Height() - cyTlb - 2, SWP_NOACTIVATE | SWP_NOZORDER);
+	m_wndPlayerView.SetWindowPos(nullptr, rectClient.left + 1, rectClient.top + cyTlb + 1, rectClient.Width() - 2, rectClient.Height() - cyTlb - 2, SWP_NOACTIVATE | SWP_NOZORDER);
 }
 
 BOOL CPlayerView::PreTranslateMessage(MSG* pMsg)
@@ -239,7 +240,7 @@ void CPlayerView::OnPaint()
 	CPaintDC dc(this); // 用于绘制的设备上下文
 
 	CRect rectTree;
-	m_wndClassView.GetWindowRect(rectTree);
+	m_wndPlayerView.GetWindowRect(rectTree);
 	ScreenToClient(rectTree);
 
 	rectTree.InflateRect(1, 1);
@@ -250,12 +251,12 @@ void CPlayerView::OnSetFocus(CWnd* pOldWnd)
 {
 	CDockablePane::OnSetFocus(pOldWnd);
 
-	m_wndClassView.SetFocus();
+	m_wndPlayerView.SetFocus();
 }
 
 void CPlayerView::OnChangeVisualStyle()
 {
-	m_ClassViewImages.DeleteImageList();
+	m_PlayerViewImages.DeleteImageList();
 
 	UINT uiBmpId = theApp.m_bHiColorIcons ? IDB_CLASS_VIEW_24 : IDB_CLASS_VIEW;
 
@@ -274,10 +275,10 @@ void CPlayerView::OnChangeVisualStyle()
 
 	nFlags |= (theApp.m_bHiColorIcons) ? ILC_COLOR24 : ILC_COLOR4;
 
-	m_ClassViewImages.Create(16, bmpObj.bmHeight, nFlags, 0, 0);
-	m_ClassViewImages.Add(&bmp, RGB(255, 0, 0));
+	m_PlayerViewImages.Create(16, bmpObj.bmHeight, nFlags, 0, 0);
+	m_PlayerViewImages.Add(&bmp, RGB(255, 0, 0));
 
-	m_wndClassView.SetImageList(&m_ClassViewImages, TVSIL_NORMAL);
+	m_wndPlayerView.SetImageList(&m_PlayerViewImages, TVSIL_NORMAL);
 
 	m_wndToolBar.CleanUpLockedImages();
 	m_wndToolBar.LoadBitmap(theApp.m_bHiColorIcons ? IDB_SORT_24 : IDR_SORT, 0, 0, TRUE /* 锁定*/);

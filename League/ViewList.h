@@ -8,7 +8,7 @@ class CViewList : public CListCtrl
 {
 // 构造
 public:
-	CViewList() noexcept;
+	CViewList(UINT uStatus) noexcept;
 
 // 重写
 protected:
@@ -20,4 +20,10 @@ public:
 
 protected:
 	DECLARE_MESSAGE_MAP()
+public:
+//	afx_msg void OnNMClick(NMHDR *pNMHDR, LRESULT *pResult);
+	afx_msg void OnNMClick(NMHDR *pNMHDR, LRESULT *pResult);
+
+private:
+	UINT m_uStatus;
 };

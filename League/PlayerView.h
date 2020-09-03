@@ -24,8 +24,8 @@ public:
 
 protected:
 	CPlayerToolBar m_wndToolBar;
-	CViewList m_wndClassView;
-	CImageList m_ClassViewImages;
+	CViewList m_wndPlayerView;
+	CImageList m_PlayerViewImages;
 	UINT m_nCurrSort;
 
 // 重写

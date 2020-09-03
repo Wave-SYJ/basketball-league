@@ -10,8 +10,10 @@
 #include "League.h"
 #endif
 
+#include "LeagueView.h"
 #include "LeagueDoc.h"
 #include "MainFrm.h"
+#include "EditPlayerDlg.h"
 
 #include <propkey.h>
 
@@ -24,7 +26,12 @@
 IMPLEMENT_DYNCREATE(CLeagueDoc, CDocument)
 
 BEGIN_MESSAGE_MAP(CLeagueDoc, CDocument)
-	ON_COMMAND(ID_32771, &CLeagueDoc::OnInsertGame)
+	ON_COMMAND(ID_INSERT_GAME, &CLeagueDoc::OnInsertGame)
+	ON_COMMAND(ID_INSERT_PLAYER, &CLeagueDoc::OnInsertPlayer)
+	ON_COMMAND(ID_EDIT_PLAYER, &CLeagueDoc::OnEditPlayer)
+	ON_COMMAND(ID_DELETE_PLAYER, &CLeagueDoc::OnDeletePlayer)
+	ON_COMMAND(ID_EDIT_GAME, &CLeagueDoc::OnEditGame)
+	ON_COMMAND(ID_DELETE_GAME, &CLeagueDoc::OnDeleteGame)
 END_MESSAGE_MAP()
 
 
@@ -58,17 +65,6 @@ BOOL CLeagueDoc::OnNewDocument()
 
 void CLeagueDoc::Serialize(CArchive& ar)
 {
-	/*if (ar.IsStoring())
-	{
-		m_listPlayer.Serialize(ar);
-		m_listGame.Serialize(ar);
-	}
-	else
-	{
-		m_listPlayer.Serialize(ar);
-		m_listGame.Serialize(ar);
-	}*/
-
 	m_listGame.Serialize(ar);
 	m_listPlayer.Serialize(ar);
 }
@@ -147,11 +143,116 @@ void CLeagueDoc::Dump(CDumpContext& dc) const
 
 void CLeagueDoc::OnInsertGame()
 {
-	CEditDlg dlgEdit;
-	dlgEdit.SetInitialValue(DIALOG_INSERT, m_listGame.GetSize() + 1, COleDateTime::GetCurrentTime());
+	CEditGameDlg dlgEdit;
+	dlgEdit.SetInitialValue(DIALOG_INSERT, m_listGame.GetSize(), COleDateTime::GetCurrentTime());
 	if (dlgEdit.DoModal() == IDOK) {
 		m_listGame.AddTail(CGame(dlgEdit.m_time));
 	}
 
 	((CMainFrame*)AfxGetMainWnd())->m_wndGameView.UpdateView(&m_listGame);
+}
+
+
+void CLeagueDoc::OnInsertPlayer()
+{
+	CLeagueView* view = (CLeagueView *)(((CMainFrame*)AfxGetMainWnd())->GetActiveView());
+	CGame* gameCurrent = view->m_pCurrentGame;
+
+	CEditPlayerDlg dlgEdit;
+	dlgEdit.SetInitialValue(DIALOG_INSERT, gameCurrent->m_listPlayer.GetSize(), nullptr);
+	if (dlgEdit.DoModal() == IDOK) {
+		gameCurrent->m_listPlayer.AddTail(CPlayer(dlgEdit.m_strName, dlgEdit.m_strTeam, dlgEdit.m_uThreePointer, dlgEdit.m_uRebound, dlgEdit.m_uDrunk, dlgEdit.m_uSteal, dlgEdit.m_uScore, 0));
+	}
+
+	UpdateAllViews(NULL);
+}
+
+
+void CLeagueDoc::OnEditPlayer()
+{
+	CLeagueView* view = (CLeagueView *)(((CMainFrame*)AfxGetMainWnd())->GetActiveView());
+	CGame* gameCurrent = view->m_pCurrentGame;
+	CPlayer* playerCurrent = nullptr;
+
+	UINT id = view->GetListCtrl().GetSelectionMark();
+	POSITION pos = gameCurrent->m_listPlayer.GetHeadPosition();
+	for (UINT i = 0; i != id; i++) {
+		if (i == id)
+			break;
+		gameCurrent->m_listPlayer.GetNext(pos);
+	}
+	playerCurrent = &gameCurrent->m_listPlayer.GetAt(pos);
+
+	CEditPlayerDlg dlgEdit;
+	dlgEdit.SetInitialValue(DIALOG_EDIT, gameCurrent->m_listPlayer.GetSize(), playerCurrent);
+	if (dlgEdit.DoModal() == IDOK) {
+		playerCurrent->m_strName = dlgEdit.m_strName;
+		playerCurrent->m_strTeam = dlgEdit.m_strTeam;
+		playerCurrent->m_uDrunk = dlgEdit.m_uDrunk;
+		playerCurrent->m_uRebound = dlgEdit.m_uRebound;
+		playerCurrent->m_uScore = dlgEdit.m_uScore;
+		playerCurrent->m_uSteal = dlgEdit.m_uSteal;
+		playerCurrent->m_uScore = dlgEdit.m_uScore;
+		playerCurrent->m_uThreePointer = dlgEdit.m_uThreePointer;
+	}
+
+	UpdateAllViews(NULL);
+}
+
+
+void CLeagueDoc::OnDeletePlayer()
+{
+	CLeagueView* view = (CLeagueView *)(((CMainFrame*)AfxGetMainWnd())->GetActiveView());
+	CGame* gameCurrent = view->m_pCurrentGame;
+
+	UINT id = view->GetListCtrl().GetSelectionMark();
+	POSITION pos = gameCurrent->m_listPlayer.GetHeadPosition();
+	for (UINT i = 0; i < gameCurrent->m_listPlayer.GetSize(); i++) {
+		if (i == id)
+			break;
+		gameCurrent->m_listPlayer.GetNext(pos);
+	}
+	gameCurrent->m_listPlayer.RemoveAt(pos);
+
+	UpdateAllViews(NULL);
+}
+
+
+void CLeagueDoc::OnEditGame()
+{
+	CLeagueView* view = (CLeagueView *)(((CMainFrame*)AfxGetMainWnd())->GetActiveView());
+	CList<CGame>* listGame = &view->GetDocument()->m_listGame;
+	POSITION pos = listGame->GetHeadPosition();
+	UINT i;
+	for (i = 0; i != listGame->GetSize(); i++) {
+		if (i == ((CMainFrame*)AfxGetMainWnd())->m_wndGameView.GetSelectedIndex())
+			break;
+		listGame->GetNext(pos);
+	}
+	CGame* currentGame = &listGame->GetAt(pos);
+
+	CEditGameDlg dlgEdit;
+	dlgEdit.SetInitialValue(DIALOG_EDIT, i + 1, currentGame->m_time);
+	if (dlgEdit.DoModal() == IDOK) {
+		currentGame->m_time = dlgEdit.m_time;
+	}
+
+	((CMainFrame*)AfxGetMainWnd())->m_wndGameView.UpdateView(&m_listGame);
+	UpdateAllViews(NULL);
+}
+
+
+void CLeagueDoc::OnDeleteGame()
+{
+	CLeagueView* view = (CLeagueView *)(((CMainFrame*)AfxGetMainWnd())->GetActiveView());
+	CList<CGame>* listGame = &view->GetDocument()->m_listGame;
+	POSITION pos = listGame->GetHeadPosition();
+	for (UINT i = 0; i != listGame->GetSize(); i++) {
+		if (i == ((CMainFrame*)AfxGetMainWnd())->m_wndGameView.GetSelectedIndex())
+			break;
+		listGame->GetNext(pos);
+	}
+	listGame->RemoveAt(pos);
+	((CMainFrame*)AfxGetMainWnd())->m_wndGameView.UpdateView(&m_listGame);
+	UpdateAllViews(NULL);
 }
