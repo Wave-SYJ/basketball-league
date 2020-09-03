@@ -47,6 +47,10 @@ CLeagueDoc::~CLeagueDoc()
 {
 }
 
+void CLeagueDoc::Recalculate()
+{
+}
+
 BOOL CLeagueDoc::OnNewDocument()
 {
 	if (!CDocument::OnNewDocument())
@@ -207,7 +211,7 @@ void CLeagueDoc::OnDeletePlayer()
 
 	UINT id = view->GetListCtrl().GetSelectionMark();
 	POSITION pos = gameCurrent->m_listPlayer.GetHeadPosition();
-	for (UINT i = 0; i < gameCurrent->m_listPlayer.GetSize(); i++) {
+	for (int i = 0; i < gameCurrent->m_listPlayer.GetSize(); i++) {
 		if (i == id)
 			break;
 		gameCurrent->m_listPlayer.GetNext(pos);
@@ -253,6 +257,8 @@ void CLeagueDoc::OnDeleteGame()
 		listGame->GetNext(pos);
 	}
 	listGame->RemoveAt(pos);
+
 	((CMainFrame*)AfxGetMainWnd())->m_wndGameView.UpdateView(&m_listGame);
+	view->ShowEmpty();
 	UpdateAllViews(NULL);
 }

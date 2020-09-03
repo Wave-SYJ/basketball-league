@@ -58,6 +58,10 @@ protected:
 	virtual void OnUpdate(CView* /*pSender*/, LPARAM /*lHint*/, CObject* /*pHint*/);
 public:
 	afx_msg void OnUpdateInsertPlayer(CCmdUI *pCmdUI);
+	afx_msg void OnUpdateEditPlayer(CCmdUI *pCmdUI);
+	afx_msg void OnUpdateDeletePlayer(CCmdUI *pCmdUI);
+	afx_msg void OnUpdateEditGame(CCmdUI *pCmdUI);
+	afx_msg void OnUpdateDeleteGame(CCmdUI *pCmdUI);
 };
 
 #ifndef _DEBUG  // LeagueView.cpp 中的调试版本

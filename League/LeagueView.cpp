@@ -31,6 +31,10 @@ BEGIN_MESSAGE_MAP(CLeagueView, CListView)
 	ON_WM_CONTEXTMENU()
 	ON_WM_RBUTTONUP()
 	ON_UPDATE_COMMAND_UI(ID_INSERT_PLAYER, &CLeagueView::OnUpdateInsertPlayer)
+	ON_UPDATE_COMMAND_UI(ID_EDIT_PLAYER, &CLeagueView::OnUpdateEditPlayer)
+	ON_UPDATE_COMMAND_UI(ID_DELETE_PLAYER, &CLeagueView::OnUpdateDeletePlayer)
+	ON_UPDATE_COMMAND_UI(ID_EDIT_GAME, &CLeagueView::OnUpdateEditGame)
+	ON_UPDATE_COMMAND_UI(ID_DELETE_GAME, &CLeagueView::OnUpdateDeleteGame)
 END_MESSAGE_MAP()
 
 // CLeagueView 构造/析构
@@ -218,6 +222,30 @@ void CLeagueView::OnUpdate(CView* /*pSender*/, LPARAM /*lHint*/, CObject* /*pHin
 
 
 void CLeagueView::OnUpdateInsertPlayer(CCmdUI *pCmdUI)
+{
+	pCmdUI->Enable(m_uStatus == STATUS_GAME);
+}
+
+
+void CLeagueView::OnUpdateEditPlayer(CCmdUI *pCmdUI)
+{
+	pCmdUI->Enable(m_uStatus == STATUS_GAME && GetListCtrl().GetSelectionMark() != -1);
+}
+
+
+void CLeagueView::OnUpdateDeletePlayer(CCmdUI *pCmdUI)
+{
+	pCmdUI->Enable(m_uStatus == STATUS_GAME && GetListCtrl().GetSelectionMark() != -1);
+}
+
+
+void CLeagueView::OnUpdateEditGame(CCmdUI *pCmdUI)
+{
+	pCmdUI->Enable(m_uStatus == STATUS_GAME);
+}
+
+
+void CLeagueView::OnUpdateDeleteGame(CCmdUI *pCmdUI)
 {
 	pCmdUI->Enable(m_uStatus == STATUS_GAME);
 }

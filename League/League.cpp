@@ -220,5 +220,3 @@ void CLeagueApp::SaveCustomState()
 
 // CLeagueApp 消息处理程序
 
-
-

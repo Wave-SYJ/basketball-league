@@ -40,6 +40,8 @@ BEGIN_MESSAGE_MAP(CGameView, CDockablePane)
 	ON_WM_PAINT()
 	ON_WM_SETFOCUS()
 	ON_WM_LBUTTONDBLCLK()
+//	ON_UPDATE_COMMAND_UI(ID_EDIT_GAME, &CGameView::OnUpdateEditGame)
+//	ON_UPDATE_COMMAND_UI(ID_DELETE_GAME1, &CGameView::OnUpdateDeleteGame)
 END_MESSAGE_MAP()
 
 /////////////////////////////////////////////////////////////////////////////
@@ -244,9 +246,11 @@ void CGameView::UpdateView(CList<CGame>* pList)
 		m_wndGameView.InsertItem(i, strTmp);
 		m_wndGameView.SetItemText(i, 1, pTmp->m_time.Format(VAR_DATEVALUEONLY));
 	}
+
+	m_wndGameView.SetSelectionMark(pList->GetSize() - 1);
 }
 
-UINT CGameView::GetSelectedIndex()
+int CGameView::GetSelectedIndex()
 {
 	return m_wndGameView.GetSelectionMark();
 }
@@ -260,3 +264,26 @@ void CGameView::OnLButtonDblClk(UINT nFlags, CPoint point)
 
 	CDockablePane::OnLButtonDblClk(nFlags, point);
 }
+
+//
+//void CGameView::OnUpdateEditGame(CCmdUI *pCmdUI)
+//{
+//	pCmdUI->Enable(GetSelectedIndex() != -1);
+//}
+//
+//void CGameView::OnUpdateDeleteGame(CCmdUI *pCmdUI)
+//{
+//	pCmdUI->Enable(GetSelectedIndex() != -1);
+//}
+
+
+//void CGameView::OnUpdateEditGame(CCmdUI *pCmdUI)
+//{
+//	pCmdUI->Enable(GetSelectedIndex() != -1);
+//}
+
+
+//void CGameView::OnUpdateDeleteGame(CCmdUI *pCmdUI)
+//{
+//	pCmdUI->Enable(GetSelectedIndex() != -1);
+//}

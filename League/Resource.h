@@ -77,22 +77,19 @@
 #define IDC_DRUNK                       1007
 #define IDC_STEAL                       1008
 #define IDC_SCORE                       1009
-#define ID_INSERT_GAME                  32775
-#define ID_INSERT_PLAYER                32776
-#define ID_EDIT_PLAYER                  32777
-#define ID_DELETE_GAME                  32778
-#define ID_EDIT_GAME                    32779
-#define ID_32780                        32780
-#define ID_32781                        32781
-#define ID_                             32782
-#define ID_DELETE_PLAYER                32783
+#define ID_INSERT_GAME                  11010
+#define ID_INSERT_PLAYER                11011
+#define ID_EDIT_PLAYER                  11012
+#define ID_DELETE_PLAYER                11015
+#define ID_EDIT_GAME                  11017
+#define ID_DELETE_GAME                11018
 
 // Next default values for new objects
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NEXT_RESOURCE_VALUE        314
-#define _APS_NEXT_COMMAND_VALUE         32784
+#define _APS_NEXT_COMMAND_VALUE         32786
 #define _APS_NEXT_CONTROL_VALUE         1007
 #define _APS_NEXT_SYMED_VALUE           310
 #endif

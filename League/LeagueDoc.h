@@ -20,6 +20,9 @@ public:
 	// 存储个人汇总
 	CList<CPlayer> m_listPlayer;
 
+public:
+	void Recalculate();
+
 // 操作
 public:
 
