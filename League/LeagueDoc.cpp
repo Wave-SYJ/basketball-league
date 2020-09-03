@@ -58,6 +58,7 @@ void CLeagueDoc::Recalculate()
 		while (posPlayer != NULL) {
 			CPlayer* player = &game->m_listPlayer.GetAt(posPlayer);
 			CPlayer playerCurrent;
+			player->m_uGame = 1;
 			if (m_mapPlayer.Lookup(player->m_strName, playerCurrent)) {
 				playerCurrent.m_uDrunk += player->m_uDrunk;
 				playerCurrent.m_uGame += 1;

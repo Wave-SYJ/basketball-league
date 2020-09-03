@@ -60,6 +60,9 @@
     <ClInclude Include="EditPlayerDlg.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="FindDlg.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="League.cpp">
@@ -96,6 +99,9 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="EditPlayerDlg.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="FindDlg.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

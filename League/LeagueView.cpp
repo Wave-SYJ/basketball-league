@@ -13,6 +13,11 @@
 #include "LeagueDoc.h"
 #include "LeagueView.h"
 #include "MainFrm.h"
+#include "FindDlg.h"
+
+#include <vector>
+#include <algorithm>
+using namespace std;
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -35,6 +40,7 @@ BEGIN_MESSAGE_MAP(CLeagueView, CListView)
 	ON_UPDATE_COMMAND_UI(ID_DELETE_PLAYER, &CLeagueView::OnUpdateDeletePlayer)
 	ON_UPDATE_COMMAND_UI(ID_EDIT_GAME, &CLeagueView::OnUpdateEditGame)
 	ON_UPDATE_COMMAND_UI(ID_DELETE_GAME, &CLeagueView::OnUpdateDeleteGame)
+	ON_COMMAND(ID_FIND, &CLeagueView::OnFind)
 END_MESSAGE_MAP()
 
 // CLeagueView 构造/析构
@@ -103,7 +109,7 @@ void CLeagueView::ShowEmpty()
 
 void CLeagueView::SetTitle(const CString strTitle)
 {
-	((CMainFrame *)AfxGetMainWnd())->m_wndCaptionBar.SetText(strTitle, CMFCCaptionBar::ALIGN_LEFT);
+	((CMainFrame *)AfxGetMainWnd())->m_wndCaptionBar.SetText(strTitle, CMFCCaptionBar::ALIGN_CENTER);
 }
 
 void CLeagueView::OnDraw(CDC* /*pDC*/)
@@ -306,4 +312,63 @@ void CLeagueView::OnUpdateEditGame(CCmdUI *pCmdUI)
 void CLeagueView::OnUpdateDeleteGame(CCmdUI *pCmdUI)
 {
 	pCmdUI->Enable(m_uStatus == STATUS_GAME);
+}
+
+bool pairSortFun(pair<CPlayer, double> elem1, pair<CPlayer, double> elem2)
+{
+	return elem1.second > elem2.second;
+}
+
+
+void CLeagueView::OnFind()
+{
+	CFindDlg dlg;
+	CString strTmp;
+
+	if (dlg.DoModal() != IDOK)
+		return;
+
+	CListCtrl* lsCtrl = &GetListCtrl();
+	lsCtrl->DeleteAllItems();
+	while (lsCtrl->DeleteColumn(0));
+
+	strTmp.Format(_T("查询 - 根据%s"), dlg.m_strSubject);
+	SetTitle(strTmp);
+
+	lsCtrl->InsertColumn(0, _T("序号"), 0, 50);
+	lsCtrl->InsertColumn(1, _T("姓名"), 0, 100);
+	lsCtrl->InsertColumn(2, _T("所在队名"), 0, 200);
+	strTmp.Format(_T("平均%s"), dlg.m_strSubject);
+	lsCtrl->InsertColumn(3, strTmp, 0, 150);
+
+	vector<pair<CPlayer, double> > vec;
+	POSITION pos = GetDocument()->m_mapPlayer.GetStartPosition();
+
+	while (pos)
+	{
+		CString str;
+		CPlayer player;
+		GetDocument()->m_mapPlayer.GetNextAssoc(pos, str, player);
+
+		if (dlg.m_strSubject == _T("三分球个数"))
+			vec.push_back(make_pair(player, player.m_uThreePointer / (player.m_uGame * 1.0)));
+		if (dlg.m_strSubject == _T("篮板球个数"))
+			vec.push_back(make_pair(player, player.m_uRebound / (player.m_uGame * 1.0)));
+		if (dlg.m_strSubject == _T("扣篮成功次数"))
+			vec.push_back(make_pair(player, player.m_uDrunk / (player.m_uGame * 1.0)));
+		if (dlg.m_strSubject == _T("抢断次数"))
+			vec.push_back(make_pair(player, player.m_uSteal / (player.m_uGame * 1.0)));
+		if (dlg.m_strSubject == _T("得分"))
+			vec.push_back(make_pair(player, player.m_uScore / (player.m_uGame * 1.0)));
+	}
+	sort(vec.begin(), vec.end(), pairSortFun);
+
+	for (UINT i = 0; i < min(vec.size(), dlg.m_uCount); i++) {
+		strTmp.Format(_T("%d"), i + 1);
+		lsCtrl->InsertItem(i, strTmp);
+		lsCtrl->SetItemText(i, 1, vec[i].first.m_strName);
+		lsCtrl->SetItemText(i, 2, vec[i].first.m_strTeam);
+		strTmp.Format(_T("%lf"), vec[i].second);
+		lsCtrl->SetItemText(i, 3, strTmp);
+	}
 }

@@ -189,6 +189,7 @@
   <ItemGroup>
     <ClInclude Include="EditGameDlg.h" />
     <ClInclude Include="EditPlayerDlg.h" />
+    <ClInclude Include="FindDlg.h" />
     <ClInclude Include="PlayerView.h" />
     <ClInclude Include="GameView.h" />
     <ClInclude Include="framework.h" />
@@ -206,6 +207,7 @@
   <ItemGroup>
     <ClCompile Include="EditGameDlg.cpp" />
     <ClCompile Include="EditPlayerDlg.cpp" />
+    <ClCompile Include="FindDlg.cpp" />
     <ClCompile Include="PlayerView.cpp" />
     <ClCompile Include="GameView.cpp" />
     <ClCompile Include="Game.cpp" />
