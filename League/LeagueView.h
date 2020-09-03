@@ -65,6 +65,7 @@ public:
 	afx_msg void OnUpdateEditGame(CCmdUI *pCmdUI);
 	afx_msg void OnUpdateDeleteGame(CCmdUI *pCmdUI);
 	afx_msg void OnFind();
+	afx_msg void OnTeam();
 };
 
 #ifndef _DEBUG  // LeagueView.cpp 中的调试版本

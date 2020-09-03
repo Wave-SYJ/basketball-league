@@ -14,6 +14,7 @@
 #include "LeagueView.h"
 #include "MainFrm.h"
 #include "FindDlg.h"
+#include "TeamDlg.h"
 
 #include <vector>
 #include <algorithm>
@@ -41,6 +42,7 @@ BEGIN_MESSAGE_MAP(CLeagueView, CListView)
 	ON_UPDATE_COMMAND_UI(ID_EDIT_GAME, &CLeagueView::OnUpdateEditGame)
 	ON_UPDATE_COMMAND_UI(ID_DELETE_GAME, &CLeagueView::OnUpdateDeleteGame)
 	ON_COMMAND(ID_FIND, &CLeagueView::OnFind)
+	ON_COMMAND(ID_TEAM, &CLeagueView::OnTeam)
 END_MESSAGE_MAP()
 
 // CLeagueView 构造/析构
@@ -370,5 +372,60 @@ void CLeagueView::OnFind()
 		lsCtrl->SetItemText(i, 2, vec[i].first.m_strTeam);
 		strTmp.Format(_T("%lf"), vec[i].second);
 		lsCtrl->SetItemText(i, 3, strTmp);
+	}
+}
+
+
+void CLeagueView::OnTeam()
+{
+	CTeamDlg dlg;
+	CString strTmp;
+
+	if (dlg.DoModal() != IDOK)
+		return;
+
+	CListCtrl* lsCtrl = &GetListCtrl();
+	lsCtrl->DeleteAllItems();
+	while (lsCtrl->DeleteColumn(0));
+
+	strTmp.Format(_T("查询 - 球队：%s"), dlg.m_strTeam);
+	SetTitle(strTmp);
+
+	lsCtrl->InsertColumn(0, _T("序号"), 0, 50);
+	lsCtrl->InsertColumn(1, _T("姓名"), 0, 150);
+	lsCtrl->InsertColumn(2, _T("所属队名"), 0, 150);
+	lsCtrl->InsertColumn(3, _T("三分球个数"), 0, 150);
+	lsCtrl->InsertColumn(4, _T("篮板球个数"), 0, 150);
+	lsCtrl->InsertColumn(5, _T("扣篮成功次数"), 0, 150);
+	lsCtrl->InsertColumn(6, _T("抢断次数"), 0, 150);
+	lsCtrl->InsertColumn(7, _T("得分"), 0, 150);
+
+	POSITION pos = GetDocument()->m_mapPlayer.GetStartPosition();
+
+	for (int i = 0; pos; i++)
+	{
+		CString str;
+		CPlayer player;
+		GetDocument()->m_mapPlayer.GetNextAssoc(pos, str, player);
+
+		if (player.m_strTeam != dlg.m_strTeam) {
+			i--;
+			continue;
+		}
+
+		strTmp.Format(_T("%d"), i + 1);
+		lsCtrl->InsertItem(i, strTmp);
+		lsCtrl->SetItemText(i, 1, player.m_strName);
+		lsCtrl->SetItemText(i, 2, player.m_strTeam);
+		strTmp.Format(_T("%d"), player.m_uThreePointer);
+		lsCtrl->SetItemText(i, 3, strTmp);
+		strTmp.Format(_T("%d"), player.m_uRebound);
+		lsCtrl->SetItemText(i, 4, strTmp);
+		strTmp.Format(_T("%d"), player.m_uDrunk);
+		lsCtrl->SetItemText(i, 5, strTmp);
+		strTmp.Format(_T("%d"), player.m_uSteal);
+		lsCtrl->SetItemText(i, 6, strTmp);
+		strTmp.Format(_T("%d"), player.m_uScore);
+		lsCtrl->SetItemText(i, 7, strTmp);
 	}
 }

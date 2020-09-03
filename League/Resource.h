@@ -70,7 +70,6 @@
 #define IDD_EDIT_GAME                   310
 #define IDD_EDIT_PLAYER                 312
 #define IDD_FIND                        314
-#define IDD_LIST                        316
 #define IDD_TEAM                        316
 #define IDC_DATE                        1001
 #define IDC_ID                          1002
@@ -92,13 +91,14 @@
 #define ID_32786                        32786
 #define ID_FIND                         32787
 #define ID_32788                        32788
+#define ID_TEAM                         32789
 
 // Next default values for new objects
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NEXT_RESOURCE_VALUE        318
-#define _APS_NEXT_COMMAND_VALUE         32789
+#define _APS_NEXT_COMMAND_VALUE         32790
 #define _APS_NEXT_CONTROL_VALUE         1010
 #define _APS_NEXT_SYMED_VALUE           310
 #endif

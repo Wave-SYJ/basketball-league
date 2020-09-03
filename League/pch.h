@@ -12,6 +12,7 @@
 #include <afxcontrolbars.h>
 #include <afxcontrolbars.h>
 #include <afxcontrolbars.h>
+#include <afxcontrolbars.h>
 
 #define STATUS_GAME 0
 #define STATUS_PLAYER 1

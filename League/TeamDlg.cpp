@@ -13,6 +13,7 @@ IMPLEMENT_DYNAMIC(CTeamDlg, CDialogEx)
 
 CTeamDlg::CTeamDlg(CWnd* pParent /*=nullptr*/)
 	: CDialogEx(IDD_TEAM, pParent)
+	, m_strTeam(_T(""))
 {
 
 }
@@ -24,6 +25,7 @@ CTeamDlg::~CTeamDlg()
 void CTeamDlg::DoDataExchange(CDataExchange* pDX)
 {
 	CDialogEx::DoDataExchange(pDX);
+	DDX_Text(pDX, IDC_NAME, m_strTeam);
 }
 
 
