@@ -1,7 +1,7 @@
 ﻿
 #pragma once
 
-#include "ViewTree.h"
+#include "ViewList.h"
 
 class CPlayerToolBar : public CMFCToolBar
 {
@@ -24,7 +24,7 @@ public:
 
 protected:
 	CPlayerToolBar m_wndToolBar;
-	CViewTree m_wndClassView;
+	CViewList m_wndClassView;
 	CImageList m_ClassViewImages;
 	UINT m_nCurrSort;
 

@@ -4,7 +4,7 @@
 
 #pragma once
 
-
+class CLeagueDoc;
 class CLeagueView : public CListView
 {
 protected: // 仅从序列化创建
@@ -17,6 +17,8 @@ public:
 
 // 操作
 public:
+	void ShowGame(UINT index);
+	void ShowPlayer(UINT index);
 
 // 重写
 public:

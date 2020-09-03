@@ -52,6 +52,15 @@ BOOL CLeagueView::PreCreateWindow(CREATESTRUCT& cs)
 }
 
 
+void CLeagueView::ShowGame(UINT index)
+{
+
+}
+
+void CLeagueView::ShowPlayer(UINT index)
+{
+}
+
 void CLeagueView::OnDraw(CDC* /*pDC*/)
 {
 	CLeagueDoc* pDoc = GetDocument();

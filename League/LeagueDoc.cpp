@@ -11,6 +11,7 @@
 #endif
 
 #include "LeagueDoc.h"
+#include "MainFrm.h"
 
 #include <propkey.h>
 
@@ -151,4 +152,6 @@ void CLeagueDoc::OnInsertGame()
 	if (dlgEdit.DoModal() == IDOK) {
 		m_listGame.AddTail(CGame(dlgEdit.m_time));
 	}
+
+	((CMainFrame*)AfxGetMainWnd())->m_wndGameView.UpdateView(&m_listGame);
 }

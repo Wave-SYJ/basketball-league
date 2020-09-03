@@ -1,7 +1,7 @@
 ﻿
 #include "pch.h"
 #include "framework.h"
-#include "ViewTree.h"
+#include "ViewList.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -12,21 +12,21 @@ static char THIS_FILE[] = __FILE__;
 /////////////////////////////////////////////////////////////////////////////
 // CViewTree
 
-CViewTree::CViewTree() noexcept
+CViewList::CViewList() noexcept
 {
 }
 
-CViewTree::~CViewTree()
+CViewList::~CViewList()
 {
 }
 
-BEGIN_MESSAGE_MAP(CViewTree, CListCtrl)
+BEGIN_MESSAGE_MAP(CViewList, CListCtrl)
 END_MESSAGE_MAP()
 
 /////////////////////////////////////////////////////////////////////////////
 // CViewTree 消息处理程序
 
-BOOL CViewTree::OnNotify(WPARAM wParam, LPARAM lParam, LRESULT* pResult)
+BOOL CViewList::OnNotify(WPARAM wParam, LPARAM lParam, LRESULT* pResult)
 {
 	BOOL bRes = CListCtrl::OnNotify(wParam, lParam, pResult);
 

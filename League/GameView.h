@@ -1,7 +1,8 @@
 ﻿
 #pragma once
 
-#include "ViewTree.h"
+#include "ViewList.h"
+
 
 class CGameViewToolBar : public CMFCToolBar
 {
@@ -13,6 +14,7 @@ class CGameViewToolBar : public CMFCToolBar
 	virtual BOOL AllowShowOnList() const { return FALSE; }
 };
 
+class CGame;
 class CGameView : public CDockablePane
 {
 // 构造
@@ -22,11 +24,14 @@ public:
 	void AdjustLayout();
 	void OnChangeVisualStyle();
 
+public:
+	void UpdateView(CList<CGame> * pList);
+
 // 特性
 protected:
 
-	CViewTree m_wndFileView;
-	CImageList m_FileViewImages;
+	CViewList m_wndGameView;
+	CImageList m_GameViewImages;
 	CGameViewToolBar m_wndToolBar;
 
 // 实现
@@ -48,5 +53,7 @@ protected:
 	afx_msg void OnSetFocus(CWnd* pOldWnd);
 
 	DECLARE_MESSAGE_MAP()
+public:
+	afx_msg void OnLButtonDblClk(UINT nFlags, CPoint point);
 };
 

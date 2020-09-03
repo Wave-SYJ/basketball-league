@@ -32,13 +32,15 @@ public:
 	virtual void Dump(CDumpContext& dc) const;
 #endif
 
+public:
+	CGameView         m_wndGameView;
+	CPlayerView        m_wndPlayerView;
+
 protected:  // 控件条嵌入成员
 	CMFCMenuBar       m_wndMenuBar;
 	CMFCToolBar       m_wndToolBar;
 	CMFCStatusBar     m_wndStatusBar;
 	CMFCToolBarImages m_UserImages;
-	CGameView         m_wndFileView;
-	CPlayerView        m_wndClassView;
 
 // 生成的消息映射函数
 protected:

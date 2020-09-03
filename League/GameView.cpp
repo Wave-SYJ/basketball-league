@@ -5,6 +5,8 @@
 #include "GameView.h"
 #include "Resource.h"
 #include "League.h"
+#include "LeagueView.h"
+#include "Game.h"
 
 #ifdef _DEBUG
 #undef THIS_FILE
@@ -36,6 +38,7 @@ BEGIN_MESSAGE_MAP(CGameView, CDockablePane)
 	ON_COMMAND(ID_EDIT_CLEAR, OnEditClear)
 	ON_WM_PAINT()
 	ON_WM_SETFOCUS()
+	ON_WM_LBUTTONDBLCLK()
 END_MESSAGE_MAP()
 
 /////////////////////////////////////////////////////////////////////////////
@@ -50,17 +53,23 @@ int CGameView::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	rectDummy.SetRectEmpty();
 
 	// 创建视图: 
-	const DWORD dwViewStyle = WS_CHILD | WS_VISIBLE | TVS_HASLINES | TVS_LINESATROOT | TVS_HASBUTTONS;
+	const DWORD dwViewStyle = WS_CHILD | WS_VISIBLE | LVS_REPORT;
 
-	if (!m_wndFileView.Create(dwViewStyle, rectDummy, this, 4))
+	if (!m_wndGameView.Create(dwViewStyle, rectDummy, this, 4))
 	{
 		TRACE0("未能创建文件视图\n");
 		return -1;      // 未能创建
 	}
 
+	m_wndGameView.SetExtendedStyle(LVS_EX_FULLROWSELECT | LVS_EX_GRIDLINES);
+	m_wndGameView.InsertColumn(0, _T("序号"));
+	m_wndGameView.InsertColumn(1, _T("比赛日期"));
+	m_wndGameView.SetColumnWidth(0, 50);
+	m_wndGameView.SetColumnWidth(1, 180);
+
 	// 加载视图图像: 
-	m_FileViewImages.Create(IDB_FILE_VIEW, 16, 0, RGB(255, 0, 255));
-	m_wndFileView.SetImageList(&m_FileViewImages, TVSIL_NORMAL);
+	m_GameViewImages.Create(IDB_FILE_VIEW, 16, 0, RGB(255, 0, 255));
+	m_wndGameView.SetImageList(&m_GameViewImages, TVSIL_NORMAL);
 
 	m_wndToolBar.Create(this, AFX_DEFAULT_TOOLBAR_STYLE, IDR_EXPLORER);
 	m_wndToolBar.LoadToolBar(IDR_EXPLORER, 0, 0, TRUE /* 已锁定*/);
@@ -91,7 +100,7 @@ void CGameView::OnSize(UINT nType, int cx, int cy)
 
 void CGameView::OnContextMenu(CWnd* pWnd, CPoint point)
 {
-	CTreeCtrl* pWndTree = (CTreeCtrl*) &m_wndFileView;
+	CTreeCtrl* pWndTree = (CTreeCtrl*) &m_wndGameView;
 	ASSERT_VALID(pWndTree);
 
 	if (pWnd != pWndTree)
@@ -131,7 +140,7 @@ void CGameView::AdjustLayout()
 	int cyTlb = m_wndToolBar.CalcFixedLayout(FALSE, TRUE).cy;
 
 	m_wndToolBar.SetWindowPos(nullptr, rectClient.left, rectClient.top, rectClient.Width(), cyTlb, SWP_NOACTIVATE | SWP_NOZORDER);
-	m_wndFileView.SetWindowPos(nullptr, rectClient.left + 1, rectClient.top + cyTlb + 1, rectClient.Width() - 2, rectClient.Height() - cyTlb - 2, SWP_NOACTIVATE | SWP_NOZORDER);
+	m_wndGameView.SetWindowPos(nullptr, rectClient.left + 1, rectClient.top + cyTlb + 1, rectClient.Width() - 2, rectClient.Height() - cyTlb - 2, SWP_NOACTIVATE | SWP_NOZORDER);
 }
 
 void CGameView::OnProperties()
@@ -175,7 +184,7 @@ void CGameView::OnPaint()
 	CPaintDC dc(this); // 用于绘制的设备上下文
 
 	CRect rectTree;
-	m_wndFileView.GetWindowRect(rectTree);
+	m_wndGameView.GetWindowRect(rectTree);
 	ScreenToClient(rectTree);
 
 	rectTree.InflateRect(1, 1);
@@ -186,7 +195,7 @@ void CGameView::OnSetFocus(CWnd* pOldWnd)
 {
 	CDockablePane::OnSetFocus(pOldWnd);
 
-	m_wndFileView.SetFocus();
+	m_wndGameView.SetFocus();
 }
 
 void CGameView::OnChangeVisualStyle()
@@ -194,7 +203,7 @@ void CGameView::OnChangeVisualStyle()
 	m_wndToolBar.CleanUpLockedImages();
 	m_wndToolBar.LoadBitmap(theApp.m_bHiColorIcons ? IDB_EXPLORER_24 : IDR_EXPLORER, 0, 0, TRUE /* 锁定*/);
 
-	m_FileViewImages.DeleteImageList();
+	m_GameViewImages.DeleteImageList();
 
 	UINT uiBmpId = theApp.m_bHiColorIcons ? IDB_FILE_VIEW_24 : IDB_FILE_VIEW;
 
@@ -213,10 +222,34 @@ void CGameView::OnChangeVisualStyle()
 
 	nFlags |= (theApp.m_bHiColorIcons) ? ILC_COLOR24 : ILC_COLOR4;
 
-	m_FileViewImages.Create(16, bmpObj.bmHeight, nFlags, 0, 0);
-	m_FileViewImages.Add(&bmp, RGB(255, 0, 255));
+	m_GameViewImages.Create(16, bmpObj.bmHeight, nFlags, 0, 0);
+	m_GameViewImages.Add(&bmp, RGB(255, 0, 255));
 
-	m_wndFileView.SetImageList(&m_FileViewImages, TVSIL_NORMAL);
+	m_wndGameView.SetImageList(&m_GameViewImages, TVSIL_NORMAL);
 }
 
+void CGameView::UpdateView(CList<CGame>* pList)
+{
+	POSITION pos = pList->GetHeadPosition();
+	for (int i = 0; pos != NULL; i++) {
+		CGame* pTmp = &pList->GetNext(pos);
+		//CString strTmp;
+		//strTmp.Format(_T("%d %s"), i + 1, pTmp->m_time.Format(VAR_DATEVALUEONLY));
+		//m_wndGameView.InsertItem(i, strTmp);
 
+		CString strTmp;
+		strTmp.Format(_T("%d"), i + 1);
+		m_wndGameView.InsertItem(i, strTmp);
+		m_wndGameView.SetItemText(i, 1, pTmp->m_time.Format(VAR_DATEVALUEONLY));
+	}
+}
+
+void CGameView::OnLButtonDblClk(UINT nFlags, CPoint point)
+{
+	CLeagueView* view = (CLeagueView *)(((CFrameWnd *)AfxGetMainWnd())->GetActiveView());
+
+	if (view != nullptr)
+		view->ShowGame(m_wndGameView.GetSelectionMark());
+
+	CDockablePane::OnLButtonDblClk(nFlags, point);
+}

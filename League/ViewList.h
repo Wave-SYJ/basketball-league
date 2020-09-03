@@ -4,11 +4,11 @@
 /////////////////////////////////////////////////////////////////////////////
 // CViewTree 窗口
 
-class CViewTree : public CListCtrl
+class CViewList : public CListCtrl
 {
 // 构造
 public:
-	CViewTree() noexcept;
+	CViewList() noexcept;
 
 // 重写
 protected:
@@ -16,7 +16,7 @@ protected:
 
 // 实现
 public:
-	virtual ~CViewTree();
+	virtual ~CViewList();
 
 protected:
 	DECLARE_MESSAGE_MAP()
