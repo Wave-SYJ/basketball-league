@@ -294,3 +294,14 @@ void CLeagueDoc::OnDeleteGame()
 	view->ShowEmpty();
 	UpdateAllViews(NULL);
 }
+
+
+BOOL CLeagueDoc::OnOpenDocument(LPCTSTR lpszPathName)
+{
+	if (!CDocument::OnOpenDocument(lpszPathName))
+		return FALSE;
+
+	((CMainFrame*)AfxGetMainWnd())->UpdateSideViews();
+
+	return TRUE;
+}

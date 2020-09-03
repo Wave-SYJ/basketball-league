@@ -12,6 +12,7 @@
 
 #include "LeagueDoc.h"
 #include "LeagueView.h"
+#include "MainFrm.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -98,6 +99,11 @@ void CLeagueView::ShowEmpty()
 {
 	m_uStatus = STATUS_EMPTY;
 	GetDocument()->UpdateAllViews(NULL);
+}
+
+void CLeagueView::SetTitle(const CString strTitle)
+{
+	((CMainFrame *)AfxGetMainWnd())->m_wndCaptionBar.SetText(strTitle, CMFCCaptionBar::ALIGN_LEFT);
 }
 
 void CLeagueView::OnDraw(CDC* /*pDC*/)
@@ -193,10 +199,16 @@ void CLeagueView::OnUpdate(CView* /*pSender*/, LPARAM /*lHint*/, CObject* /*pHin
 	while (lsCtrl->DeleteColumn(0));
 	CString strTmp;
 
-	if (m_uStatus == STATUS_EMPTY)
+	if (m_uStatus == STATUS_EMPTY) {
+		SetTitle(_T("空白页"));
 		return;
+	}
+		
 
 	if (m_uStatus == STATUS_GAME) {
+		strTmp.Format(_T("球赛信息 - %s"), m_pCurrentGame->m_time.Format(VAR_DATEVALUEONLY));
+		SetTitle(strTmp);
+
 		lsCtrl->InsertColumn(0, _T("序号"), 0, 50);
 		lsCtrl->InsertColumn(1, _T("姓名"), 0, 150);
 		lsCtrl->InsertColumn(2, _T("所属队名"), 0, 150);
@@ -229,7 +241,9 @@ void CLeagueView::OnUpdate(CView* /*pSender*/, LPARAM /*lHint*/, CObject* /*pHin
 	}
 
 	if (m_uStatus == STATUS_PLAYER) {
-		lsCtrl->InsertColumn(0, _T("属性"), 0, 50);
+		SetTitle(CString("个人汇总 - ") + m_currentPlayer.m_strName);
+
+		lsCtrl->InsertColumn(0, _T("属性"), 0, 100);
 		lsCtrl->InsertColumn(1, _T("汇总值"), 0, 450);
 
 		lsCtrl->InsertItem(0, _T("姓名"));

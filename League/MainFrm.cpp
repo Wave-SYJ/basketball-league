@@ -7,6 +7,7 @@
 #include "League.h"
 
 #include "MainFrm.h"
+#include "LeagueDoc.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -106,6 +107,13 @@ int CMainFrame::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	// 启用 Visual Studio 2005 样式停靠窗口自动隐藏行为
 	EnableAutoHidePanes(CBRS_ALIGN_ANY);
 
+	// 创建标题栏: 
+	if (!CreateCaptionBar())
+	{
+		TRACE0("未能创建标题栏\n");
+		return -1;      // 未能创建
+	}
+
 	// 加载菜单项图像(不在任何标准工具栏上): 
 	CMFCToolBar::AddToolBarForImageCollection(IDR_MENU_IMAGES, theApp.m_bHiColorIcons ? IDB_MENU_IMAGES_24 : 0);
 
@@ -172,6 +180,28 @@ int CMainFrame::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	return 0;
 }
 
+BOOL CMainFrame::CreateCaptionBar()
+{
+	if (!m_wndCaptionBar.Create(WS_CHILD | WS_VISIBLE | WS_CLIPSIBLINGS, this, ID_VIEW_CAPTION_BAR, -1, FALSE))
+	{
+		TRACE0("未能创建标题栏\n");
+		return FALSE;
+	}
+
+	return TRUE;
+}
+
+
+void CMainFrame::UpdateSideViews()
+{
+	CLeagueDoc* pDoc = (CLeagueDoc*)GetActiveDocument();
+	if (pDoc == nullptr)
+		return;
+
+	m_wndGameView.UpdateView(&pDoc->m_listGame);
+	m_wndPlayerView.UpdateView(pDoc->m_mapPlayer);
+}
+
 BOOL CMainFrame::PreCreateWindow(CREATESTRUCT& cs)
 {
 	if( !CFrameWndEx::PreCreateWindow(cs) )
@@ -186,7 +216,6 @@ BOOL CMainFrame::CreateDockingWindows()
 {
 	BOOL bNameValid;
 
-	// 创建类视图
 	CString strClassView;
 	bNameValid = strClassView.LoadString(IDS_CLASS_VIEW);
 	ASSERT(bNameValid);
@@ -196,7 +225,6 @@ BOOL CMainFrame::CreateDockingWindows()
 		return FALSE; // 未能创建
 	}
 
-	// 创建文件视图
 	CString strFileView;
 	bNameValid = strFileView.LoadString(IDS_FILE_VIEW);
 	ASSERT(bNameValid);

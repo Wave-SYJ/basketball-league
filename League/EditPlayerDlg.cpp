@@ -32,7 +32,7 @@ CEditPlayerDlg::~CEditPlayerDlg()
 void CEditPlayerDlg::SetInitialValue(UINT uDlgType, UINT uIndex, const CPlayer * player)
 {
 	m_uDlgType = uDlgType;
-	m_uId = uIndex;
+	m_uId = uIndex + 1;
 	if (uDlgType == DIALOG_EDIT) {
 		m_strName = player->m_strName;
 		m_strTeam = player->m_strTeam;

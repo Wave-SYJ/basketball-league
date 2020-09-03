@@ -28,6 +28,8 @@ public:
 	void ShowGame(int index);
 	void ShowPlayer(const CString& strName);
 	void ShowEmpty();
+private:
+	void SetTitle(const CString strTitle);
 
 // 重写
 public:

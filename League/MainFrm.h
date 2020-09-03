@@ -18,6 +18,7 @@ public:
 
 // 操作
 public:
+	void UpdateSideViews();
 
 // 重写
 public:
@@ -35,12 +36,15 @@ public:
 public:
 	CGameView         m_wndGameView;
 	CPlayerView        m_wndPlayerView;
+	CMFCCaptionBar		m_wndCaptionBar;
+	
 
 protected:  // 控件条嵌入成员
 	CMFCMenuBar       m_wndMenuBar;
 	CMFCToolBar       m_wndToolBar;
 	CMFCStatusBar     m_wndStatusBar;
 	CMFCToolBarImages m_UserImages;
+	
 
 // 生成的消息映射函数
 protected:
@@ -49,6 +53,7 @@ protected:
 	afx_msg LRESULT OnToolbarCreateNew(WPARAM wp, LPARAM lp);
 	afx_msg void OnApplicationLook(UINT id);
 	afx_msg void OnUpdateApplicationLook(CCmdUI* pCmdUI);
+	BOOL CreateCaptionBar();
 	DECLARE_MESSAGE_MAP()
 
 	BOOL CreateDockingWindows();

@@ -64,10 +64,13 @@
 #define ID_VIEW_APPLOOK_OFF_2007_SILVER 217
 #define ID_VIEW_APPLOOK_OFF_2007_AQUA   218
 #define ID_VIEW_APPLOOK_WINDOWS_7       219
+#define ID_VIEW_CAPTION_BAR             221
 #define IDS_EXPLORER                    305
 #define IDS_EDIT_MENU                   306
 #define IDD_EDIT_GAME                   310
 #define IDD_EDIT_PLAYER                 312
+#define IDD_DIALOG1                     314
+#define IDD_FIND                        314
 #define IDC_DATE                        1001
 #define IDC_ID                          1002
 #define IDC_NAME                        1003
@@ -81,14 +84,14 @@
 #define ID_INSERT_PLAYER                11011
 #define ID_EDIT_PLAYER                  11012
 #define ID_DELETE_PLAYER                11015
-#define ID_EDIT_GAME                  11017
-#define ID_DELETE_GAME                11018
+#define ID_EDIT_GAME                    11017
+#define ID_DELETE_GAME                  11018
 
 // Next default values for new objects
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
-#define _APS_NEXT_RESOURCE_VALUE        314
+#define _APS_NEXT_RESOURCE_VALUE        316
 #define _APS_NEXT_COMMAND_VALUE         32786
 #define _APS_NEXT_CONTROL_VALUE         1007
 #define _APS_NEXT_SYMED_VALUE           310

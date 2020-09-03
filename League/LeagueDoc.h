@@ -60,4 +60,5 @@ public:
 	afx_msg void OnDeletePlayer();
 	afx_msg void OnEditGame();
 	afx_msg void OnDeleteGame();
+	virtual BOOL OnOpenDocument(LPCTSTR lpszPathName);
 };

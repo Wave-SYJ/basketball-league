@@ -6,6 +6,7 @@ class CPlayer : public CObject
 	
 public:
 	CPlayer();
+	CPlayer(const CPlayer& other);
 	CPlayer(const CString& strName, const CString strTeam, UINT uThreePointer,
 		UINT uRebound, UINT uDrunk, UINT uSteal, UINT uScore, UINT uGame);
 
@@ -21,5 +22,6 @@ public:
 	UINT m_uSteal;				// 抢断次数
 	UINT m_uScore;				// 得分
 	UINT m_uGame;				// 比赛场数
+	virtual void Serialize(CArchive& ar);
 };
 

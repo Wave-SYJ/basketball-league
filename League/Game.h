@@ -9,11 +9,13 @@ class CGame : public CObject
 public:
 	CGame();
 	CGame(const COleDateTime time);
+	CGame(const CGame& other);
 
 	COleDateTime m_time;
 	CList<CPlayer> m_listPlayer;
 
 public:
 	const CGame& operator=(const CGame& other);
+	virtual void Serialize(CArchive& ar);
 };
 
