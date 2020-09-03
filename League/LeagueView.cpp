@@ -12,7 +12,6 @@
 
 #include "LeagueDoc.h"
 #include "LeagueView.h"
-#include "Player.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -72,16 +71,26 @@ void CLeagueView::ShowGame(int index)
 	GetDocument()->UpdateAllViews(NULL);
 }
 
-void CLeagueView::ShowPlayer(int index)
+void CLeagueView::ShowPlayer(const CString& strName)
 {
-	if (index == -1)
+	if (strName == "")
 		return;
 
 	m_uStatus = STATUS_PLAYER;
-	POSITION pos = GetDocument()->m_listPlayer.GetHeadPosition();
-	for (UINT i = 0; i != index; i++)
-		GetDocument()->m_listPlayer.GetNext(pos);
-	m_pCurrentPlayer = &GetDocument()->m_listPlayer.GetAt(pos);
+
+	POSITION pos = GetDocument()->m_mapPlayer.GetStartPosition();
+
+	while (pos)
+	{
+		CString str;
+		CPlayer player;
+		GetDocument()->m_mapPlayer.GetNextAssoc(pos, str, player);
+		if (str == strName) {
+			m_currentPlayer = player;
+			break;
+		}
+	}
+
 	GetDocument()->UpdateAllViews(NULL);
 }
 
@@ -217,6 +226,41 @@ void CLeagueView::OnUpdate(CView* /*pSender*/, LPARAM /*lHint*/, CObject* /*pHin
 			strTmp.Format(_T("%d"), playerTmp->m_uScore);
 			lsCtrl->SetItemText(i, 7, strTmp);
 		}
+	}
+
+	if (m_uStatus == STATUS_PLAYER) {
+		lsCtrl->InsertColumn(0, _T("属性"), 0, 50);
+		lsCtrl->InsertColumn(1, _T("汇总值"), 0, 450);
+
+		lsCtrl->InsertItem(0, _T("姓名"));
+		lsCtrl->SetItemText(0, 1, m_currentPlayer.m_strName);
+
+		lsCtrl->InsertItem(1, _T("所属队名"));
+		lsCtrl->SetItemText(1, 1, m_currentPlayer.m_strTeam);
+
+		strTmp.Format(_T("%d"), m_currentPlayer.m_uThreePointer);
+		lsCtrl->InsertItem(2, _T("三分球个数"));
+		lsCtrl->SetItemText(2, 1, strTmp);
+
+		strTmp.Format(_T("%d"), m_currentPlayer.m_uRebound);
+		lsCtrl->InsertItem(3, _T("篮板球个数"));
+		lsCtrl->SetItemText(3, 1, strTmp);
+
+		strTmp.Format(_T("%d"), m_currentPlayer.m_uDrunk);
+		lsCtrl->InsertItem(4, _T("扣篮成功个数"));
+		lsCtrl->SetItemText(4, 1, strTmp);
+
+		strTmp.Format(_T("%d"), m_currentPlayer.m_uSteal);
+		lsCtrl->InsertItem(5, _T("抢断次数"));
+		lsCtrl->SetItemText(5, 1, strTmp);
+
+		strTmp.Format(_T("%d"), m_currentPlayer.m_uScore);
+		lsCtrl->InsertItem(6, _T("得分"));
+		lsCtrl->SetItemText(6, 1, strTmp);
+
+		strTmp.Format(_T("%d"), m_currentPlayer.m_uGame);
+		lsCtrl->InsertItem(7, _T("比赛场数"));
+		lsCtrl->SetItemText(7, 1, strTmp);
 	}
 }
 

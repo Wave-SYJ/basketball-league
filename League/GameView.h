@@ -55,7 +55,7 @@ protected:
 
 	DECLARE_MESSAGE_MAP()
 public:
-	afx_msg void OnLButtonDblClk(UINT nFlags, CPoint point);
+//	afx_msg void OnLButtonDblClk(UINT nFlags, CPoint point);
 //	afx_msg void OnUpdateEditGame(CCmdUI *pCmdUI);
 //	afx_msg void OnUpdateDeleteGame(CCmdUI *pCmdUI);
 };

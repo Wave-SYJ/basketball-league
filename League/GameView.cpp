@@ -39,7 +39,7 @@ BEGIN_MESSAGE_MAP(CGameView, CDockablePane)
 	ON_COMMAND(ID_EDIT_CLEAR, OnEditClear)
 	ON_WM_PAINT()
 	ON_WM_SETFOCUS()
-	ON_WM_LBUTTONDBLCLK()
+//	ON_WM_LBUTTONDBLCLK()
 //	ON_UPDATE_COMMAND_UI(ID_EDIT_GAME, &CGameView::OnUpdateEditGame)
 //	ON_UPDATE_COMMAND_UI(ID_DELETE_GAME1, &CGameView::OnUpdateDeleteGame)
 END_MESSAGE_MAP()
@@ -255,15 +255,15 @@ int CGameView::GetSelectedIndex()
 	return m_wndGameView.GetSelectionMark();
 }
 
-void CGameView::OnLButtonDblClk(UINT nFlags, CPoint point)
-{
-	CLeagueView* view = (CLeagueView *)(((CFrameWnd *)AfxGetMainWnd())->GetActiveView());
-
-	if (view != nullptr)
-		view->ShowGame(m_wndGameView.GetSelectionMark());
-
-	CDockablePane::OnLButtonDblClk(nFlags, point);
-}
+//void CGameView::OnLButtonDblClk(UINT nFlags, CPoint point)
+//{
+//	CLeagueView* view = (CLeagueView *)(((CFrameWnd *)AfxGetMainWnd())->GetActiveView());
+//
+//	if (view != nullptr)
+//		view->ShowGame(m_wndGameView.GetSelectionMark());
+//
+//	CDockablePane::OnLButtonDblClk(nFlags, point);
+//}
 
 //
 //void CGameView::OnUpdateEditGame(CCmdUI *pCmdUI)

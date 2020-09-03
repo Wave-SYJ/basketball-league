@@ -3,9 +3,9 @@
 //
 
 #pragma once
+#include "Player.h"
 
 class CLeagueDoc;
-class CPlayer;
 class CGame;
 class CLeagueView : public CListView
 {
@@ -21,12 +21,12 @@ private:
 	UINT m_uStatus;
 public:
 	CGame* m_pCurrentGame;
-	CPlayer* m_pCurrentPlayer;
+	CPlayer m_currentPlayer;
 
 // 操作
 public:
 	void ShowGame(int index);
-	void ShowPlayer(int index);
+	void ShowPlayer(const CString& strName);
 	void ShowEmpty();
 
 // 重写

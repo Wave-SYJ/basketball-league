@@ -18,6 +18,9 @@ CPlayer::CPlayer(const CString & strName, const CString strTeam,
 
 const CPlayer & CPlayer::operator=(const CPlayer & other)
 {
+	if (&other == this)
+		return *this;
+
 	m_strName = other.m_strName;
 	m_strTeam = other.m_strTeam;
 	m_uThreePointer = other.m_uThreePointer;

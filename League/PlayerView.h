@@ -3,6 +3,8 @@
 
 #include "ViewList.h"
 
+class CPlayer;
+
 class CPlayerToolBar : public CMFCToolBar
 {
 	virtual void OnUpdateCmdUI(CFrameWnd* /*pTarget*/, BOOL bDisableIfNoHndler)
@@ -21,6 +23,7 @@ public:
 
 	void AdjustLayout();
 	void OnChangeVisualStyle();
+	void UpdateView(const CMap<CString, LPCTSTR, CPlayer, CPlayer&>& map);
 
 protected:
 	CPlayerToolBar m_wndToolBar;

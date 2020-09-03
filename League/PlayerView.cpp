@@ -5,6 +5,7 @@
 #include "PlayerView.h"
 #include "Resource.h"
 #include "League.h"
+#include "Player.h"
 
 class CPlayerViewMenuButton : public CMFCToolBarMenuButton
 {
@@ -74,13 +75,19 @@ int CPlayerView::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	rectDummy.SetRectEmpty();
 
 	// 创建视图: 
-	const DWORD dwViewStyle = WS_CHILD | WS_VISIBLE | TVS_HASLINES | TVS_LINESATROOT | TVS_HASBUTTONS | WS_CLIPSIBLINGS | WS_CLIPCHILDREN;
+	const DWORD dwViewStyle = WS_CHILD | WS_VISIBLE | LVS_REPORT;
 
 	if (!m_wndPlayerView.Create(dwViewStyle, rectDummy, this, 2))
 	{
 		TRACE0("未能创建类视图\n");
 		return -1;      // 未能创建
 	}
+
+	m_wndPlayerView.SetExtendedStyle(LVS_EX_FULLROWSELECT | LVS_EX_GRIDLINES);
+	m_wndPlayerView.InsertColumn(0, _T("序号"));
+	m_wndPlayerView.InsertColumn(1, _T("姓名"));
+	m_wndPlayerView.SetColumnWidth(0, 50);
+	m_wndPlayerView.SetColumnWidth(1, 180);
 
 	// 加载图像: 
 	m_wndToolBar.Create(this, AFX_DEFAULT_TOOLBAR_STYLE, IDR_SORT);
@@ -282,4 +289,25 @@ void CPlayerView::OnChangeVisualStyle()
 
 	m_wndToolBar.CleanUpLockedImages();
 	m_wndToolBar.LoadBitmap(theApp.m_bHiColorIcons ? IDB_SORT_24 : IDR_SORT, 0, 0, TRUE /* 锁定*/);
+}
+
+void CPlayerView::UpdateView(const CMap<CString, LPCTSTR, CPlayer, CPlayer&>& map)
+{
+	m_wndPlayerView.DeleteAllItems();
+
+	POSITION pos = map.GetStartPosition();
+
+	for (int i = 0;  pos; i++)
+	{
+		CString str;
+		CPlayer player;
+		map.GetNextAssoc(pos, str, player);
+
+		CString strTmp;
+		strTmp.Format(_T("%d"), i + 1);
+		m_wndPlayerView.InsertItem(i, strTmp);
+		m_wndPlayerView.SetItemText(i, 1, player.m_strName);
+	}
+
+	m_wndPlayerView.SetSelectionMark(map.GetCount() - 1);
 }

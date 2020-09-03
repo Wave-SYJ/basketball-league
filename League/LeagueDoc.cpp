@@ -49,6 +49,32 @@ CLeagueDoc::~CLeagueDoc()
 
 void CLeagueDoc::Recalculate()
 {
+	m_mapPlayer.RemoveAll();
+
+	POSITION posGame = m_listGame.GetHeadPosition();
+	while (posGame != NULL) {
+		CGame* game = &m_listGame.GetAt(posGame);
+		POSITION posPlayer = game->m_listPlayer.GetHeadPosition();
+		while (posPlayer != NULL) {
+			CPlayer* player = &game->m_listPlayer.GetAt(posPlayer);
+			CPlayer playerCurrent;
+			if (m_mapPlayer.Lookup(player->m_strName, playerCurrent)) {
+				playerCurrent.m_uDrunk += player->m_uDrunk;
+				playerCurrent.m_uGame += 1;
+				playerCurrent.m_uRebound += player->m_uRebound;
+				playerCurrent.m_uScore += player->m_uScore;
+				playerCurrent.m_uSteal += player->m_uSteal;
+				playerCurrent.m_uThreePointer += player->m_uThreePointer;
+				m_mapPlayer.SetAt(player->m_strName, playerCurrent);
+			}
+			else
+				m_mapPlayer.SetAt(player->m_strName, *player);
+			
+			m_listGame.GetNext(posPlayer);
+		}
+		game->m_listPlayer.GetNext(posGame);
+	}
+	((CMainFrame*)AfxGetMainWnd())->m_wndPlayerView.UpdateView(m_mapPlayer);
 }
 
 BOOL CLeagueDoc::OnNewDocument()
@@ -70,7 +96,7 @@ BOOL CLeagueDoc::OnNewDocument()
 void CLeagueDoc::Serialize(CArchive& ar)
 {
 	m_listGame.Serialize(ar);
-	m_listPlayer.Serialize(ar);
+	m_mapPlayer.Serialize(ar);
 }
 
 #ifdef SHARED_HANDLERS
@@ -153,6 +179,7 @@ void CLeagueDoc::OnInsertGame()
 		m_listGame.AddTail(CGame(dlgEdit.m_time));
 	}
 
+	Recalculate();
 	((CMainFrame*)AfxGetMainWnd())->m_wndGameView.UpdateView(&m_listGame);
 }
 
@@ -168,6 +195,7 @@ void CLeagueDoc::OnInsertPlayer()
 		gameCurrent->m_listPlayer.AddTail(CPlayer(dlgEdit.m_strName, dlgEdit.m_strTeam, dlgEdit.m_uThreePointer, dlgEdit.m_uRebound, dlgEdit.m_uDrunk, dlgEdit.m_uSteal, dlgEdit.m_uScore, 0));
 	}
 
+	Recalculate();
 	UpdateAllViews(NULL);
 }
 
@@ -200,6 +228,7 @@ void CLeagueDoc::OnEditPlayer()
 		playerCurrent->m_uThreePointer = dlgEdit.m_uThreePointer;
 	}
 
+	Recalculate();
 	UpdateAllViews(NULL);
 }
 
@@ -218,6 +247,7 @@ void CLeagueDoc::OnDeletePlayer()
 	}
 	gameCurrent->m_listPlayer.RemoveAt(pos);
 
+	Recalculate();
 	UpdateAllViews(NULL);
 }
 
@@ -241,6 +271,7 @@ void CLeagueDoc::OnEditGame()
 		currentGame->m_time = dlgEdit.m_time;
 	}
 
+	Recalculate();
 	((CMainFrame*)AfxGetMainWnd())->m_wndGameView.UpdateView(&m_listGame);
 	UpdateAllViews(NULL);
 }
@@ -258,6 +289,7 @@ void CLeagueDoc::OnDeleteGame()
 	}
 	listGame->RemoveAt(pos);
 
+	Recalculate();
 	((CMainFrame*)AfxGetMainWnd())->m_wndGameView.UpdateView(&m_listGame);
 	view->ShowEmpty();
 	UpdateAllViews(NULL);

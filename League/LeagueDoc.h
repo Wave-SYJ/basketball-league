@@ -18,7 +18,7 @@ public:
 	// 存储每场球赛
 	CList<CGame> m_listGame;
 	// 存储个人汇总
-	CList<CPlayer> m_listPlayer;
+	CMap<CString, LPCTSTR, CPlayer, CPlayer&> m_mapPlayer;
 
 public:
 	void Recalculate();

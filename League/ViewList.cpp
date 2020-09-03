@@ -68,7 +68,7 @@ void CViewList::OnNMClick(NMHDR *pNMHDR, LRESULT *pResult)
 	if (m_uStatus == STATUS_GAME)
 		view->ShowGame(GetSelectionMark());
 	else
-		view->ShowPlayer(GetSelectionMark());
+		view->ShowPlayer(GetItemText(GetSelectionMark(), 1));
 
 	*pResult = 0;
 }
