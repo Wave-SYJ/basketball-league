@@ -49,6 +49,8 @@ BOOL CFindDlg::OnInitDialog()
 	m_comboSubject.InsertString(3, _T("抢断次数"));
 	m_comboSubject.InsertString(4, _T("得分"));
 
+	SetWindowText(_T("根据项目排序"));
+
 	return TRUE;  // return TRUE unless you set the focus to a control
 				  // 异常: OCX 属性页应返回 FALSE
 }

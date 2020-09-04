@@ -34,3 +34,14 @@ END_MESSAGE_MAP()
 
 
 // CTeamDlg 消息处理程序
+
+
+BOOL CTeamDlg::OnInitDialog()
+{
+	CDialogEx::OnInitDialog();
+
+	SetWindowText(_T("根据球队查询"));
+
+	return TRUE;  // return TRUE unless you set the focus to a control
+				  // 异常: OCX 属性页应返回 FALSE
+}

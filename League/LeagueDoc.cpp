@@ -96,8 +96,25 @@ BOOL CLeagueDoc::OnNewDocument()
 
 void CLeagueDoc::Serialize(CArchive& ar)
 {
-	m_listGame.Serialize(ar);
-	m_mapPlayer.Serialize(ar);
+	if (ar.IsStoring()) {
+		ar << m_listGame.GetSize();
+		POSITION pos = m_listGame.GetHeadPosition();
+		while (pos) {
+			CGame* game = &m_listGame.GetNext(pos);
+			game->Serialize(ar);
+		}
+	}
+	else {
+		UINT uListGameSize;
+		ar >> uListGameSize;
+		for (UINT i = 0; i < uListGameSize; i++) {
+			CGame game;
+			game.Serialize(ar);
+			m_listGame.AddTail(game);
+		}
+	}
+
+	Recalculate();
 }
 
 #ifdef SHARED_HANDLERS

@@ -63,3 +63,19 @@ END_MESSAGE_MAP()
 
 
 // CEditPlayerDlg 消息处理程序
+
+
+BOOL CEditPlayerDlg::OnInitDialog()
+{
+	CDialogEx::OnInitDialog();
+
+	if (m_uDlgType == DIALOG_INSERT)
+		SetWindowText(_T("添加球员"));
+	else
+		SetWindowText(_T("修改球员"));
+
+	UpdateData(FALSE);
+
+	return TRUE;  // return TRUE unless you set the focus to a control
+				  // 异常: OCX 属性页应返回 FALSE
+}

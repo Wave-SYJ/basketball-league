@@ -35,4 +35,6 @@ public:
 
 private:
 	UINT m_uDlgType;
+public:
+	virtual BOOL OnInitDialog();
 };

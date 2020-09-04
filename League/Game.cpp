@@ -39,15 +39,29 @@ void CGame::Serialize(CArchive& ar)
 {
 	CObject::Serialize(ar);
 
-	m_listPlayer.Serialize(ar);
 	if (ar.IsStoring())
 	{
 		ar << m_time.Format(VAR_DATEVALUEONLY);
+
+		ar << m_listPlayer.GetSize();
+		POSITION pos = m_listPlayer.GetHeadPosition();
+		while (pos) {
+			CPlayer* player = &m_listPlayer.GetNext(pos);
+			player->Serialize(ar);
+		}
 	}
 	else
 	{
 		CString strTime;
 		ar >> strTime;
 		m_time.ParseDateTime(strTime);
+
+		UINT uListSize;
+		ar >> uListSize;
+		for (UINT i = 0; i < uListSize; i++) {
+			CPlayer player;
+			player.Serialize(ar);
+			m_listPlayer.AddTail(player);
+		}
 	}
 }
