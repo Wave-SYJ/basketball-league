@@ -43,6 +43,7 @@ BEGIN_MESSAGE_MAP(CLeagueView, CListView)
 	ON_UPDATE_COMMAND_UI(ID_DELETE_GAME, &CLeagueView::OnUpdateDeleteGame)
 	ON_COMMAND(ID_FIND, &CLeagueView::OnFind)
 	ON_COMMAND(ID_TEAM, &CLeagueView::OnTeam)
+	ON_UPDATE_COMMAND_UI(ID_INSERT_GAME, &CLeagueView::OnUpdateInsertGame)
 END_MESSAGE_MAP()
 
 // CLeagueView 构造/析构
@@ -105,6 +106,8 @@ void CLeagueView::ShowPlayer(const CString& strName)
 
 void CLeagueView::ShowEmpty()
 {
+	if (this == nullptr)
+		return;
 	m_uStatus = STATUS_EMPTY;
 	GetDocument()->UpdateAllViews(NULL);
 }
@@ -170,9 +173,11 @@ void CLeagueView::OnRButtonUp(UINT /* nFlags */, CPoint point)
 
 void CLeagueView::OnContextMenu(CWnd* /* pWnd */, CPoint point)
 {
-#ifndef SHARED_HANDLERS
-	theApp.GetContextMenuManager()->ShowPopupMenu(IDR_POPUP_EDIT, point.x, point.y, this, TRUE);
-#endif
+//#ifndef shared_handlers
+//	theapp.getcontextmenumanager()->showpopupmenu(idr_popup_edit, point.x, point.y, this, true);
+//#endif
+	if (m_uStatus == STATUS_GAME)
+		theApp.GetContextMenuManager()->ShowPopupMenu(IDR_POPUP_PLAYER, point.x, point.y, this, TRUE);
 }
 
 
@@ -428,4 +433,10 @@ void CLeagueView::OnTeam()
 		strTmp.Format(_T("%d"), player.m_uScore);
 		lsCtrl->SetItemText(i, 7, strTmp);
 	}
+}
+
+
+void CLeagueView::OnUpdateInsertGame(CCmdUI *pCmdUI)
+{
+	pCmdUI->Enable();
 }

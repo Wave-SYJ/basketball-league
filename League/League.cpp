@@ -200,14 +200,8 @@ void CLeagueApp::OnAppAbout()
 
 void CLeagueApp::PreLoadState()
 {
-	BOOL bNameValid;
-	CString strName;
-	bNameValid = strName.LoadString(IDS_EDIT_MENU);
-	ASSERT(bNameValid);
-	GetContextMenuManager()->AddMenu(strName, IDR_POPUP_EDIT);
-	bNameValid = strName.LoadString(IDS_EXPLORER);
-	ASSERT(bNameValid);
-	GetContextMenuManager()->AddMenu(strName, IDR_POPUP_EXPLORER);
+	GetContextMenuManager()->AddMenu(_T("球赛菜单"), IDR_POPUP_GAME);
+	GetContextMenuManager()->AddMenu(_T("球员菜单"), IDR_POPUP_PLAYER);
 }
 
 void CLeagueApp::LoadCustomState()

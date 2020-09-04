@@ -83,8 +83,12 @@ BOOL CLeagueDoc::OnNewDocument()
 	if (!CDocument::OnNewDocument())
 		return FALSE;
 
-	// TODO: 在此添加重新初始化代码
-	// (SDI 文档将重用该文档)
+	m_listGame.RemoveAll();
+	m_mapPlayer.RemoveAll();
+
+	((CLeagueView*)(((CMainFrame*)AfxGetMainWnd())->GetActiveView()))->ShowEmpty();
+	((CMainFrame*)AfxGetMainWnd())->UpdateSideViews();
+	Recalculate();
 
 	return TRUE;
 }
@@ -319,7 +323,9 @@ BOOL CLeagueDoc::OnOpenDocument(LPCTSTR lpszPathName)
 	if (!CDocument::OnOpenDocument(lpszPathName))
 		return FALSE;
 
+	((CLeagueView*)(((CMainFrame*)AfxGetMainWnd())->GetActiveView()))->ShowEmpty();
 	((CMainFrame*)AfxGetMainWnd())->UpdateSideViews();
+	Recalculate();
 
 	return TRUE;
 }

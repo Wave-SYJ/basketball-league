@@ -71,6 +71,9 @@
 #define IDD_EDIT_PLAYER                 312
 #define IDD_FIND                        314
 #define IDD_TEAM                        316
+#define IDR_POPUP_GAME                  319
+#define IDR_MENU1                       320
+#define IDR_POPUP_PLAYER                320
 #define IDC_DATE                        1001
 #define IDC_ID                          1002
 #define IDC_NAME                        1003
@@ -97,7 +100,7 @@
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
-#define _APS_NEXT_RESOURCE_VALUE        318
+#define _APS_NEXT_RESOURCE_VALUE        321
 #define _APS_NEXT_COMMAND_VALUE         32790
 #define _APS_NEXT_CONTROL_VALUE         1010
 #define _APS_NEXT_SYMED_VALUE           310

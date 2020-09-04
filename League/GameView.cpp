@@ -42,6 +42,8 @@ BEGIN_MESSAGE_MAP(CGameView, CDockablePane)
 //	ON_WM_LBUTTONDBLCLK()
 //	ON_UPDATE_COMMAND_UI(ID_EDIT_GAME, &CGameView::OnUpdateEditGame)
 //	ON_UPDATE_COMMAND_UI(ID_DELETE_GAME1, &CGameView::OnUpdateDeleteGame)
+//ON_UPDATE_COMMAND_UI(ID_EDIT_GAME, &CGameView::OnUpdateEditGame)
+//ON_UPDATE_COMMAND_UI(ID_DELETE_GAME, &CGameView::OnUpdateDeleteGame)
 END_MESSAGE_MAP()
 
 /////////////////////////////////////////////////////////////////////////////
@@ -103,31 +105,7 @@ void CGameView::OnSize(UINT nType, int cx, int cy)
 
 void CGameView::OnContextMenu(CWnd* pWnd, CPoint point)
 {
-	CTreeCtrl* pWndTree = (CTreeCtrl*) &m_wndGameView;
-	ASSERT_VALID(pWndTree);
-
-	if (pWnd != pWndTree)
-	{
-		CDockablePane::OnContextMenu(pWnd, point);
-		return;
-	}
-
-	if (point != CPoint(-1, -1))
-	{
-		// 选择已单击的项: 
-		CPoint ptTree = point;
-		pWndTree->ScreenToClient(&ptTree);
-
-		UINT flags = 0;
-		HTREEITEM hTreeItem = pWndTree->HitTest(ptTree, &flags);
-		if (hTreeItem != nullptr)
-		{
-			pWndTree->SelectItem(hTreeItem);
-		}
-	}
-
-	pWndTree->SetFocus();
-	theApp.GetContextMenuManager()->ShowPopupMenu(IDR_POPUP_EXPLORER, point.x, point.y, this, TRUE);
+	//theApp.GetContextMenuManager()->ShowPopupMenu(IDR_POPUP_GAME, point.x, point.y, this, TRUE);
 }
 
 void CGameView::AdjustLayout()
@@ -254,36 +232,3 @@ int CGameView::GetSelectedIndex()
 {
 	return m_wndGameView.GetSelectionMark();
 }
-
-//void CGameView::OnLButtonDblClk(UINT nFlags, CPoint point)
-//{
-//	CLeagueView* view = (CLeagueView *)(((CFrameWnd *)AfxGetMainWnd())->GetActiveView());
-//
-//	if (view != nullptr)
-//		view->ShowGame(m_wndGameView.GetSelectionMark());
-//
-//	CDockablePane::OnLButtonDblClk(nFlags, point);
-//}
-
-//
-//void CGameView::OnUpdateEditGame(CCmdUI *pCmdUI)
-//{
-//	pCmdUI->Enable(GetSelectedIndex() != -1);
-//}
-//
-//void CGameView::OnUpdateDeleteGame(CCmdUI *pCmdUI)
-//{
-//	pCmdUI->Enable(GetSelectedIndex() != -1);
-//}
-
-
-//void CGameView::OnUpdateEditGame(CCmdUI *pCmdUI)
-//{
-//	pCmdUI->Enable(GetSelectedIndex() != -1);
-//}
-
-
-//void CGameView::OnUpdateDeleteGame(CCmdUI *pCmdUI)
-//{
-//	pCmdUI->Enable(GetSelectedIndex() != -1);
-//}
