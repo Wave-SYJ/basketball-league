@@ -87,8 +87,8 @@ int CPlayerView::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	m_wndPlayerView.SetExtendedStyle(LVS_EX_FULLROWSELECT | LVS_EX_GRIDLINES);
 	m_wndPlayerView.InsertColumn(0, _T("序号"));
 	m_wndPlayerView.InsertColumn(1, _T("姓名"));
-	m_wndPlayerView.SetColumnWidth(0, 50);
-	m_wndPlayerView.SetColumnWidth(1, 180);
+	m_wndPlayerView.SetColumnWidth(0, 100);
+	m_wndPlayerView.SetColumnWidth(1, 250);
 
 	// 加载图像: 
 	m_wndToolBar.Create(this, AFX_DEFAULT_TOOLBAR_STYLE, IDR_SORT);

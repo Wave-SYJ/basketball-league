@@ -176,8 +176,7 @@ void CLeagueView::OnContextMenu(CWnd* /* pWnd */, CPoint point)
 //#ifndef shared_handlers
 //	theapp.getcontextmenumanager()->showpopupmenu(idr_popup_edit, point.x, point.y, this, true);
 //#endif
-	if (m_uStatus == STATUS_GAME)
-		theApp.GetContextMenuManager()->ShowPopupMenu(IDR_POPUP_PLAYER, point.x, point.y, this, TRUE);
+	theApp.GetContextMenuManager()->ShowPopupMenu(IDR_POPUP_PLAYER, point.x, point.y, this, TRUE);
 }
 
 
@@ -219,7 +218,7 @@ void CLeagueView::OnUpdate(CView* /*pSender*/, LPARAM /*lHint*/, CObject* /*pHin
 		
 
 	if (m_uStatus == STATUS_GAME) {
-		strTmp.Format(_T("球赛信息 - %s"), m_pCurrentGame->m_time.Format(VAR_DATEVALUEONLY));
+		strTmp.Format(_T("比赛信息 - %s"), m_pCurrentGame->m_time.Format(VAR_DATEVALUEONLY));
 		SetTitle(strTmp);
 
 		lsCtrl->InsertColumn(0, _T("序号"), 0, 50);

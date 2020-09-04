@@ -320,6 +320,8 @@ void CLeagueDoc::OnDeleteGame()
 
 BOOL CLeagueDoc::OnOpenDocument(LPCTSTR lpszPathName)
 {
+	m_listGame.RemoveAll();
+	m_mapPlayer.RemoveAll();
 	if (!CDocument::OnOpenDocument(lpszPathName))
 		return FALSE;
 
