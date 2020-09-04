@@ -6,6 +6,7 @@
 #include "Resource.h"
 #include "League.h"
 #include "Player.h"
+#include "LeagueView.h"
 
 class CPlayerViewMenuButton : public CMFCToolBarMenuButton
 {

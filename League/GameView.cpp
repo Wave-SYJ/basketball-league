@@ -105,7 +105,7 @@ void CGameView::OnSize(UINT nType, int cx, int cy)
 
 void CGameView::OnContextMenu(CWnd* pWnd, CPoint point)
 {
-	//theApp.GetContextMenuManager()->ShowPopupMenu(IDR_POPUP_GAME, point.x, point.y, this, TRUE);
+	theApp.GetContextMenuManager()->ShowPopupMenu(IDR_POPUP_GAME, point.x, point.y, this, FALSE);
 }
 
 void CGameView::AdjustLayout()
