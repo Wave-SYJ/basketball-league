@@ -288,7 +288,7 @@ void CLeagueDoc::OnEditGame()
 	CGame* currentGame = &listGame->GetAt(pos);
 
 	CEditGameDlg dlgEdit;
-	dlgEdit.SetInitialValue(DIALOG_EDIT, i + 1, currentGame->m_time);
+	dlgEdit.SetInitialValue(DIALOG_EDIT, i, currentGame->m_time);
 	if (dlgEdit.DoModal() == IDOK) {
 		currentGame->m_time = dlgEdit.m_time;
 	}

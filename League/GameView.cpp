@@ -67,7 +67,7 @@ int CGameView::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	}
 
 	m_wndGameView.SetExtendedStyle(LVS_EX_FULLROWSELECT | LVS_EX_GRIDLINES);
-	m_wndGameView.InsertColumn(0, _T("序号"));
+	m_wndGameView.InsertColumn(0, _T("#"));
 	m_wndGameView.InsertColumn(1, _T("比赛日期"));
 	m_wndGameView.SetColumnWidth(0, 50);
 	m_wndGameView.SetColumnWidth(1, 180);

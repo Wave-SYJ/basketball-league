@@ -221,7 +221,7 @@ void CLeagueView::OnUpdate(CView* /*pSender*/, LPARAM /*lHint*/, CObject* /*pHin
 		strTmp.Format(_T("比赛信息 - %s"), m_pCurrentGame->m_time.Format(VAR_DATEVALUEONLY));
 		SetTitle(strTmp);
 
-		lsCtrl->InsertColumn(0, _T("序号"), 0, 50);
+		lsCtrl->InsertColumn(0, _T("#"), 0, 50);
 		lsCtrl->InsertColumn(1, _T("姓名"), 0, 150);
 		lsCtrl->InsertColumn(2, _T("所属队名"), 0, 150);
 		lsCtrl->InsertColumn(3, _T("三分球个数"), 0, 150);
@@ -255,7 +255,7 @@ void CLeagueView::OnUpdate(CView* /*pSender*/, LPARAM /*lHint*/, CObject* /*pHin
 	if (m_uStatus == STATUS_PLAYER) {
 		SetTitle(CString("个人汇总 - ") + m_currentPlayer.m_strName);
 
-		lsCtrl->InsertColumn(0, _T("属性"), 0, 100);
+		lsCtrl->InsertColumn(0, _T("属性"), 0, 200);
 		lsCtrl->InsertColumn(1, _T("汇总值"), 0, 450);
 
 		lsCtrl->InsertItem(0, _T("姓名"));
@@ -341,7 +341,7 @@ void CLeagueView::OnFind()
 	strTmp.Format(_T("查询 - 根据%s"), dlg.m_strSubject);
 	SetTitle(strTmp);
 
-	lsCtrl->InsertColumn(0, _T("序号"), 0, 50);
+	lsCtrl->InsertColumn(0, _T(""), 0, 50);
 	lsCtrl->InsertColumn(1, _T("姓名"), 0, 100);
 	lsCtrl->InsertColumn(2, _T("所在队名"), 0, 200);
 	strTmp.Format(_T("平均%s"), dlg.m_strSubject);
@@ -395,7 +395,7 @@ void CLeagueView::OnTeam()
 	strTmp.Format(_T("查询 - 球队：%s"), dlg.m_strTeam);
 	SetTitle(strTmp);
 
-	lsCtrl->InsertColumn(0, _T("序号"), 0, 50);
+	lsCtrl->InsertColumn(0, _T(""), 0, 50);
 	lsCtrl->InsertColumn(1, _T("姓名"), 0, 150);
 	lsCtrl->InsertColumn(2, _T("所属队名"), 0, 150);
 	lsCtrl->InsertColumn(3, _T("三分球个数"), 0, 150);
