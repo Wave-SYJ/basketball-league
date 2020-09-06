@@ -202,6 +202,7 @@ void CLeagueDoc::OnInsertGame()
 	}
 
 	Recalculate();
+	SetModifiedFlag();
 	((CMainFrame*)AfxGetMainWnd())->m_wndGameView.UpdateView(&m_listGame);
 }
 
@@ -218,6 +219,7 @@ void CLeagueDoc::OnInsertPlayer()
 	}
 
 	Recalculate();
+	SetModifiedFlag();
 	UpdateAllViews(NULL);
 }
 
@@ -251,6 +253,7 @@ void CLeagueDoc::OnEditPlayer()
 	}
 
 	Recalculate();
+	SetModifiedFlag();
 	UpdateAllViews(NULL);
 }
 
@@ -270,6 +273,7 @@ void CLeagueDoc::OnDeletePlayer()
 	gameCurrent->m_listPlayer.RemoveAt(pos);
 
 	Recalculate();
+	SetModifiedFlag();
 	UpdateAllViews(NULL);
 }
 
@@ -294,6 +298,7 @@ void CLeagueDoc::OnEditGame()
 	}
 
 	Recalculate();
+	SetModifiedFlag();
 	((CMainFrame*)AfxGetMainWnd())->m_wndGameView.UpdateView(&m_listGame);
 	UpdateAllViews(NULL);
 }
@@ -314,6 +319,7 @@ void CLeagueDoc::OnDeleteGame()
 	Recalculate();
 	((CMainFrame*)AfxGetMainWnd())->m_wndGameView.UpdateView(&m_listGame);
 	view->ShowEmpty();
+	SetModifiedFlag();
 	UpdateAllViews(NULL);
 }
 
