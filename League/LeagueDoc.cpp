@@ -199,11 +199,10 @@ void CLeagueDoc::OnInsertGame()
 	dlgEdit.SetInitialValue(DIALOG_INSERT, m_listGame.GetSize(), COleDateTime::GetCurrentTime());
 	if (dlgEdit.DoModal() == IDOK) {
 		m_listGame.AddTail(CGame(dlgEdit.m_time));
+		SetModifiedFlag();
+		Recalculate();
+		((CMainFrame*)AfxGetMainWnd())->m_wndGameView.UpdateView(&m_listGame);
 	}
-
-	Recalculate();
-	SetModifiedFlag();
-	((CMainFrame*)AfxGetMainWnd())->m_wndGameView.UpdateView(&m_listGame);
 }
 
 
@@ -216,11 +215,12 @@ void CLeagueDoc::OnInsertPlayer()
 	dlgEdit.SetInitialValue(DIALOG_INSERT, gameCurrent->m_listPlayer.GetSize(), nullptr);
 	if (dlgEdit.DoModal() == IDOK) {
 		gameCurrent->m_listPlayer.AddTail(CPlayer(dlgEdit.m_strName, dlgEdit.m_strTeam, dlgEdit.m_uThreePointer, dlgEdit.m_uRebound, dlgEdit.m_uDrunk, dlgEdit.m_uSteal, dlgEdit.m_uScore, 0));
+		Recalculate();
+		SetModifiedFlag();
+		UpdateAllViews(NULL);
 	}
 
-	Recalculate();
-	SetModifiedFlag();
-	UpdateAllViews(NULL);
+	
 }
 
 
@@ -250,11 +250,10 @@ void CLeagueDoc::OnEditPlayer()
 		playerCurrent->m_uSteal = dlgEdit.m_uSteal;
 		playerCurrent->m_uScore = dlgEdit.m_uScore;
 		playerCurrent->m_uThreePointer = dlgEdit.m_uThreePointer;
+		Recalculate();
+		SetModifiedFlag();
+		UpdateAllViews(NULL);
 	}
-
-	Recalculate();
-	SetModifiedFlag();
-	UpdateAllViews(NULL);
 }
 
 
@@ -295,12 +294,11 @@ void CLeagueDoc::OnEditGame()
 	dlgEdit.SetInitialValue(DIALOG_EDIT, i, currentGame->m_time);
 	if (dlgEdit.DoModal() == IDOK) {
 		currentGame->m_time = dlgEdit.m_time;
+		Recalculate();
+		SetModifiedFlag();
+		((CMainFrame*)AfxGetMainWnd())->m_wndGameView.UpdateView(&m_listGame);
+		UpdateAllViews(NULL);
 	}
-
-	Recalculate();
-	SetModifiedFlag();
-	((CMainFrame*)AfxGetMainWnd())->m_wndGameView.UpdateView(&m_listGame);
-	UpdateAllViews(NULL);
 }
 
 

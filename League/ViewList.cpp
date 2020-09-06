@@ -11,8 +11,6 @@
 static char THIS_FILE[] = __FILE__;
 #endif
 
-/////////////////////////////////////////////////////////////////////////////
-// CViewTree
 
 CViewList::CViewList(UINT uStatus) noexcept
 	: m_uStatus(uStatus)

@@ -17,7 +17,6 @@
 #define STATUS_GAME 0
 #define STATUS_PLAYER 1
 #define STATUS_EMPTY 2
-#define STATUS_FIND 3
 
 #define DIALOG_INSERT	0
 #define DIALOG_EDIT		1
